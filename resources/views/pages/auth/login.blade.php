@@ -67,23 +67,29 @@
       <h4 class="mb-2">Welcome to Sneat! 👋</h4>
       <p class="mb-4">Please sign-in to your account and start the adventure</p>
 
-      <form id="formAuthentication" class="mb-3 pb-2" action="index.html" method="POST">
+      <form id="formAuthentication" class="mb-3 pb-2" action="{{ route('action.login') }}" method="POST">
+        @csrf
         <div class="mb-3">
-          <label for="email" class="form-label">Email or Username</label>
+          <label for="email" class="form-label">Email</label>
           <input
             type="text"
             class="form-control"
             id="email"
-            name="email-username"
-            placeholder="Enter your email or username"
+            value="{{ old('email') }}"
+            name="email"
+            placeholder="Enter your email"
             autofocus
           />
+          @if ($errors->first('email'))
+              <span class="text-danger" style="font-size: 0.8rem;">{{ $errors->first('email') }}</span>
+          @endif
         </div>
         <div class="mb-3 form-password-toggle">
           <div class="input-group input-group-merge">
             <input
               type="password"
               id="password"
+              value="{{ old('password') }}"
               class="form-control"
               name="password"
               placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
@@ -91,6 +97,9 @@
             />
             <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
           </div>
+          @if ($errors->first('password'))
+          <span class="text-danger" style="font-size: 0.8rem;">{{ $errors->first('password') }}</span>
+          @endif
         </div>
         <div class="mb-3">
           <div class="form-check">

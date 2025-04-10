@@ -11,7 +11,7 @@ class LoginRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,8 +21,28 @@ class LoginRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            //
+        $rules = [
+            'email' => 'required|email',
+            'password' => 'required|string|min:8',
         ];
+
+        return $rules;
+    }
+
+    public function messages(): array
+    {
+        return [
+            'required' => ':attribute không được để trống!',
+            'email' => 'Vui lòng nhập đúng định dạng email!',
+            'min' => ':attribute không được nhỏ hơn :min ký tự!',
+        ];
+    }
+
+    public function attributes(): array
+    {
+        return [
+            'password' => 'Mật khẩu',
+            'email' => 'Email'
+        ]; 
     }
 }

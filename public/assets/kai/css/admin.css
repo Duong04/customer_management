@@ -1,0 +1,237 @@
+.colorinput-color.bg-info {
+    background-color: transparent !important;
+}
+
+.colorinput-input:checked ~ .colorinput-color.bg-info {
+    background-color: #48abf7 !important;
+}
+
+.img-user {
+    width: 40px;
+    height: 40px;
+    background-color: #fff;
+    padding: 2px;
+    border-radius: 50%;
+}
+
+.img-user {
+    position: absolute;
+    right: 0;
+    transition: all ease 0.4s;
+}
+
+.img-user div {
+    background-color: #e8e8e8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.img-user:nth-child(1) {
+    right: 90px;
+}
+
+.img-user:nth-child(2) {
+    right: 60px;
+}
+
+.img-user:nth-child(3) {
+    right: 30px;
+}
+
+.img-user:hover {
+    transform: translateY(-6px);
+    z-index: 2;
+}
+
+/* From Uiverse.io by njesenberger */
+.toggle-container {
+    --active-color: #18e31b;
+    --reject-color: #e32618;
+    --inactive-color: #d3d3d6;
+    position: relative;
+    aspect-ratio: 292 / 142;
+    height: 3em;
+}
+
+.toggle-input-2,
+.toggle-input {
+    appearance: none;
+    margin: 0;
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+
+.toggle {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+}
+
+.toggle-background {
+    fill: var(--inactive-color);
+    transition: fill 0.4s;
+}
+
+.toggle-input:checked + .toggle .toggle-background {
+    fill: var(--active-color);
+}
+
+.toggle-input-2:checked + .toggle .toggle-background {
+    fill: var(--reject-color);
+}
+
+.toggle-circle-center {
+    transform-origin: center;
+    transition: transform 0.6s;
+}
+
+.toggle-input-2:checked + .toggle .toggle-circle-center,
+.toggle-input:checked + .toggle .toggle-circle-center {
+    transform: translateX(150px);
+}
+
+.toggle-circle {
+    transform-origin: center;
+    transition: transform 0.45s;
+    backface-visibility: hidden;
+}
+
+.toggle-circle.left {
+    transform: scale(1);
+}
+
+.toggle-input-2:checked + .toggle .toggle-circle.left,
+.toggle-input:checked + .toggle .toggle-circle.left {
+    transform: scale(0);
+}
+
+.toggle-circle.right {
+    transform: scale(0);
+}
+
+.toggle-input-2:checked + .toggle .toggle-circle.right,
+.toggle-input:checked + .toggle .toggle-circle.right {
+    transform: scale(1);
+}
+
+.toggle-icon {
+    transition: fill 0.4s;
+}
+
+.toggle-icon.on {
+    fill: var(--inactive-color);
+}
+
+.toggle-input-2:checked + .toggle .toggle-icon.on,
+.toggle-input:checked + .toggle .toggle-icon.on {
+    fill: #fff;
+}
+
+.toggle-icon.off {
+    fill: #eaeaec;
+}
+
+.toggle-input-2:checked + .toggle .toggle-icon.off,
+.toggle-input:checked + .toggle .toggle-icon.off {
+    fill: var(--active-color);
+}
+
+.m-h-170 {
+    min-height: 170px;
+}
+
+.badge-custom {
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-weight: 500;
+    font-size: 10px;
+    display: inline-block;
+    text-align: center;
+}
+
+/* Gray */
+.badge-gray {
+    background-color: #d4d5d6;
+    color: #374151;
+}
+
+/* Red */
+.badge-red {
+    background-color: #fee2e2;
+    color: #b91c1c;
+}
+
+/* Yellow */
+.badge-yellow {
+    background-color: #fef9c3;
+    color: #92400e;
+}
+
+/* Green */
+.badge-green {
+    background-color: #d1fae5;
+    color: #065f46;
+}
+
+/* Blue */
+.badge-blue {
+    background-color: #dbeafe;
+    color: #1d4ed8;
+}
+
+/* Indigo */
+.badge-indigo {
+    background-color: #e0e7ff;
+    color: #4338ca;
+}
+
+/* Purple */
+.badge-purple {
+    background-color: #f3e8ff;
+    color: #9333ea;
+}
+
+/* Pink */
+.badge-pink {
+    background-color: #fce7f3;
+    color: #be185d;
+}
+  
+.upload-box {
+    border: 2px dashed #0b2dee;
+    padding: 35px 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    position: relative;
+}
+
+.upload-box:hover {
+    background-color: #d6e5fc;
+}
+
+.upload-box i,
+.upload-box span {
+    pointer-events: none;
+}
+
+.text-purple {
+    color: #0b2dee;
+}
+
+.btn-plus,
+.btn-remove {
+    cursor: pointer;
+}
+
+.btn-plus:hover,
+.btn-remove:hover {
+    opacity: 0.8;
+}
+
