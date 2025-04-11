@@ -64,6 +64,11 @@
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="/assets/js/config.js"></script>
+    <style>
+      .swal-footer {
+        text-align: center;
+      }
+    </style>
     @yield('css')
   </head>
 
@@ -124,7 +129,10 @@
     <script src="/assets/js/main.js"></script>
 
     <!-- Page JS -->
+    <script src="/assets/kai/js/plugin/sweetalert/sweetalert.min.js"></script>
     <script src="/assets/js/dashboards-analytics.js"></script>
+    <script src="/assets/kai/js/sweetalert.js"></script>
+    <script src="/assets/kai/js/main.js"></script>
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>

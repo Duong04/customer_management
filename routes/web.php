@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Web\ActionController;
 use App\Http\Controllers\Web\AuthController;
+use App\Http\Controllers\Web\CustomerController;
 use App\Http\Controllers\Web\DashboardController;
 use App\Http\Controllers\Web\PermissionController;
 use App\Http\Controllers\Web\RoleController;
@@ -42,6 +43,15 @@ Route::middleware('auth')->prefix('admin')->group(function () {
         Route::get('/{id}', 'show')->name('permissions.show');
         Route::put('/{id}', 'update')->name('permissions.update');
         Route::delete('/{id}', 'delete')->name('permissions.delete');
+    });
+
+    Route::controller(CustomerController::class)->prefix('customers')->group(function () {
+        Route::get('/', 'index')->name('customers.index');
+        Route::get('/create', 'create')->name('customers.create');
+        Route::post('/create', 'store')->name('customers.store');
+        Route::get('/{id}', 'show')->name('customers.show');
+        Route::put('/{id}', 'update')->name('customers.update');
+        Route::delete('/{id}', 'delete')->name('customers.delete');
     });
 });
 

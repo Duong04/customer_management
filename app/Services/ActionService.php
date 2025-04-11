@@ -22,11 +22,13 @@ class ActionService
 
             $action = Action::create($data);
 
-            foreach ($request->input('permissions') as $item) {
-                PermissionAction::create([
-                    'action_id' => $action->id,
-                    'permission_id' => $item
-                ]);
+            if ($request->input('permissions')) {
+                foreach ($request->input('permissions') as $item) {
+                    PermissionAction::create([
+                        'action_id' => $action->id,
+                        'permission_id' => $item
+                    ]);
+                }
             }
 
             toastr()->success('Hành động đã được tạo thành công!');
@@ -61,11 +63,13 @@ class ActionService
 
             $action->update($data);
 
-            foreach ($request->input('permissions') as $item) {
-                PermissionAction::create([
-                    'action_id' => $id,
-                    'permission_id' => $item
-                ]);
+            if ($request->input('permissions')) {
+                foreach ($request->input('permissions') as $item) {
+                    PermissionAction::create([
+                        'action_id' => $id,
+                        'permission_id' => $item
+                    ]);
+                }
             }
 
             toastr()->success('Hành động đã được cập nhật thành công!');

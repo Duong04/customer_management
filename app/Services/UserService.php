@@ -5,9 +5,15 @@ use App\Models\User;
 use App\Models\UserDetail;
 
 class UserService {
-    public function all() {
+    public function all($role = null) {
         try {
-            $user = User::orderByDesc('id')->get();
+            $user = User::orderByDesc('id');
+
+            if ($role) {
+                $user->where('role_id', $role);
+            }
+
+            $user->get();
 
             return $user;
         } catch (\Throwable $th) {
