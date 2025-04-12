@@ -98,10 +98,10 @@ return new class extends Migration
         Schema::create('customer_contacts', function (Blueprint $table) {
             $table->id();
             $table->foreignId('customer_id')->constrained()->onDelete('cascade');
-            $table->string('name');
             $table->enum('gender', ['male', 'female'])->nullable();
-            $table->string('email')->nullable();
             $table->string('phone')->nullable();
+            $table->string('name')->nullable();
+            $table->string('position')->nullable();
             $table->timestamps();
         });
 
@@ -111,16 +111,12 @@ return new class extends Migration
             $table->string('name');
             $table->string('signer')->nullable();
             $table->foreignId('customer_id')->constrained()->onDelete('cascade');
-            $table->unsignedBigInteger('customer_representative_id')->nullable();
-            $table->foreign('customer_representative_id')->references('id')->on('customer_contacts')->onDelete('set null');
             $table->date('sign_date')->nullable();
             $table->date('start_date')->nullable();
             $table->date('end_date')->nullable();
             $table->enum('status', ['valid', 'expired', 'not_yet_valid'])->default('not_yet_valid');
             $table->decimal('contract_value', 15, 2)->nullable();
-            $table->text('payment_info')->nullable();
             $table->text('note')->nullable();
-            $table->json('attachments')->nullable();
             $table->timestamps();
         });
         

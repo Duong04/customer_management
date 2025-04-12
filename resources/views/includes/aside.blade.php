@@ -104,6 +104,12 @@
             <span class="menu-header-text">Pages</span>
         </li>
         <li class="menu-item">
+            <a href="{{ route('contracts.index') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-cube-alt"></i>
+                <div data-i18n="Misc">Quản lý hợp đồng</div>
+            </a>
+        </li>
+        <li class="menu-item">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-user"></i>
                 <div data-i18n="Account Settings">Quản lý người dùng</div>
@@ -115,8 +121,8 @@
                     </a>
                 </li>
                 <li class="menu-item">
-                    <a href="pages-account-settings-notifications.html" class="menu-link">
-                        <div data-i18n="Notifications">Quản lý nội bộ</div>
+                    <a href="{{ route('staffs.index') }}" class="menu-link">
+                        <div data-i18n="Notifications">Quản lý nhân sự</div>
                     </a>
                 </li>
             </ul>
@@ -140,24 +146,6 @@
                 <li class="menu-item">
                     <a href="{{ route('permissions.index') }}" class="menu-link">
                         <div data-i18n="Basic">Quyền</div>
-                    </a>
-                </li>
-            </ul>
-        </li>
-        <li class="menu-item">
-            <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-cube-alt"></i>
-                <div data-i18n="Misc">Misc</div>
-            </a>
-            <ul class="menu-sub">
-                <li class="menu-item">
-                    <a href="pages-misc-error.html" class="menu-link">
-                        <div data-i18n="Error">Error</div>
-                    </a>
-                </li>
-                <li class="menu-item">
-                    <a href="pages-misc-under-maintenance.html" class="menu-link">
-                        <div data-i18n="Under Maintenance">Under Maintenance</div>
                     </a>
                 </li>
             </ul>

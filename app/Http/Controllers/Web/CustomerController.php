@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CustomerRequest;
 use Illuminate\Http\Request;
 use App\Services\UserService;
 
@@ -16,11 +17,28 @@ class CustomerController extends Controller
 
     public function index() {
         $users = $this->userService->all(5);
-
         return view('pages.customer.index', compact('users'));
     }
 
     public function create() {
         return view('pages.customer.create');
+    }
+
+    public function store(CustomerRequest $request) {
+        return $this->userService->createCustomer($request);
+    }
+
+    public function show($id) {
+        $user = $this->userService->findById($id);
+
+        if (!$user) {
+            abort(404);
+        }
+
+        return view('pages.customer.update', compact('user'));
+    }
+
+    public function update(CustomerRequest $request, $id) {
+        return $this->userService->updateCustomer($request, $id);
     }
 }

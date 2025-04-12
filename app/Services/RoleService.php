@@ -5,9 +5,15 @@ use App\Models\Role;
 use App\Models\RolePermission;
 
 class RoleService {
-    public function all() {
+    public function all($not_role_id = null) {
         try {
-            return Role::with('users')->withCount('users')->orderByDesc('id')->get();
+            $roles = Role::with('users')->withCount('users');
+
+            if ($not_role_id) {
+                $roles->where('id', '!=', $not_role_id);
+            }
+
+            return $roles = $roles->orderByDesc('id')->get();
         } catch (\Throwable $th) {
             return $th->getMessage();
         }

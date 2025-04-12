@@ -8,7 +8,6 @@ class Customer extends Model
 {
     protected $table = 'customers';
     protected $fillable = [
-        'name',
         'fullname',
         'code',
         'address',
@@ -16,4 +15,8 @@ class Customer extends Model
         'note',
         'status'
     ];
+
+    public function customerContact() {
+        return $this->belongsTo(CustomerContact::class, 'customer_id');
+    }
 }

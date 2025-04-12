@@ -1,127 +1,7 @@
-@extends('layouts.master-layout', ['title' => 'Admin - Quản lý khách hàng'])
-@section('css')
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
-        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <style>
-        .toggler {
-            width: 72px;
-            margin: 8px 0;
-        }
-
-        .toggler input {
-            display: none;
-        }
-
-        .toggler label {
-            display: block;
-            position: relative;
-            width: 60px;
-            height: 28px;
-            border: 1px solid #d6d6d6;
-            border-radius: 36px;
-            background: #e4e8e8;
-            cursor: pointer;
-        }
-
-        .toggler label::after {
-            display: block;
-            border-radius: 100%;
-            background-color: #d7062a;
-            content: '';
-            animation-name: toggler-size;
-            animation-duration: 0.15s;
-            animation-timing-function: ease-out;
-            animation-direction: forwards;
-            animation-iteration-count: 1;
-            animation-play-state: running;
-        }
-
-        .toggler label::after,
-        .toggler label .toggler-on,
-        .toggler label .toggler-off {
-            position: absolute;
-            top: 50%;
-            left: 25%;
-            width: 26px;
-            height: 26px;
-            transform: translateY(-50%) translateX(-50%);
-            transition: left 0.15s ease-in-out, background-color 0.2s ease-out, width 0.15s ease-in-out, height 0.15s ease-in-out, opacity 0.15s ease-in-out;
-        }
-
-        .toggler input:checked+label::after,
-        .toggler input:checked+label .toggler-on,
-        .toggler input:checked+label .toggler-off {
-            left: 75%;
-        }
-
-        .toggler input:checked+label::after {
-            background-color: #50ac5d;
-            animation-name: toggler-size2;
-        }
-
-        .toggler .toggler-on,
-        .toggler .toggler-off {
-            opacity: 1;
-            z-index: 2;
-        }
-
-        .toggler input:checked+label .toggler-off,
-        .toggler input:not(:checked)+label .toggler-on {
-            width: 0;
-            height: 0;
-            opacity: 0;
-        }
-
-        .toggler .path {
-            fill: none;
-            stroke: #fefefe;
-            stroke-width: 7px;
-            stroke-linecap: round;
-            stroke-miterlimit: 10;
-        }
-
-        @keyframes toggler-size {
-
-            0%,
-            100% {
-                width: 26px;
-                height: 26px;
-            }
-
-            50% {
-                width: 20px;
-                height: 20px;
-            }
-        }
-
-        @keyframes toggler-size2 {
-
-            0%,
-            100% {
-                width: 26px;
-                height: 26px;
-            }
-
-            50% {
-                width: 20px;
-                height: 20px;
-            }
-        }
-    </style>
-@endsection
-@section('script')
-    <script src="/assets/kai/js/plugin/datatables/datatables.min.js"></script>
-    <script src="">
-        $(document).ready(function() {
-            $("#basic-datatables").DataTable({});
-        });
-    </script>
-    <script type="module" src="/assets/js/async.js"></script>
-@endsection
+@extends('layouts.master-layout', ['title' => 'Admin - Quản lý hợp đồng'])
 @section('content')
     <div class="container-xxl flex-grow-1 container-p-y">
-        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Quản lý người dùng /</span> Khách hàng</h4>
+        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Quản lý hợp đồng /</span> Hợp đồng</h4>
         <!-- Hoverable Table rows -->
         <div class="row">
             <div class="col-md-12">
@@ -129,9 +9,9 @@
                     <div class="card-header">
                         <div class="d-flex align-item-center">
                             <h4 class="card-title">Danh sách</h4>
-                            <a href="{{ route('customers.create') }}" class="btn btn-primary btn-round ms-auto">
+                            <a href="{{ route('contracts.create') }}" class="btn btn-primary btn-round ms-auto">
                                 <i class="fa fa-plus"></i>
-                                Thêm khách hàng
+                                Tạo hợp đồng
                             </a>
                         </div>
                     </div>
@@ -141,12 +21,12 @@
                                 <thead>
                                     <tr>
                                         <th>Stt</th>
-                                        <th>Mã Khách hàng</th>
-                                        <th>Khách hàng</th>
-                                        <th>Tên viết tắt</th>
-                                        <th>Lĩnh vực</th>
+                                        <th>Mã nhân sự</th>
+                                        <th>Nhân sự</th>
+                                        <th>Vai trò</th>
                                         <th>Trạng thái</th>
-                                        <th>Trạng thái tài khoản</th>
+                                        <th>Giới tính</th>
+                                        <th>Ngày sinh</th>
                                         <th>Ngày tạo</th>
                                         <th>Ngày cập nhật</th>
                                         <th class="text-center">Thao tác</th>
@@ -155,35 +35,39 @@
                                 <tbody>
                                     @php
                                         $i = 1;
-                                        $status = [
-                                            'information_exchange' => 'Trao đổi thông tin',
-                                            'consulting_survey' => 'Khảo sát tư vấn',
-                                            'quotation' => 'Báo giá',
-                                            'negotiation' => 'Đàm phán',
-                                            'contract_signed' => 'Ký hợp đồng',
-                                            'payment_completed' => 'Thanh toán nghiệm thu',
-                                            'no_contract_signed' => 'Không ký hợp đồng',
-                                        ];
+                                        
+                                        function roleColor($name) {
+                                            $color = 'bg-label-dark';
+                                            switch ($name) {
+                                                case 'Staff':
+                                                    $color = 'bg-label-info';
+                                                    break;
+                                                case 'Manager':
+                                                    $color = 'bg-label-warning';
+                                                    break;
+                                                case 'Customer':
+                                                    $color = 'bg-label-danger';
+                                                    break;
+                                                case 'Supper Admin':
+                                                    $color = 'bg-label-success';
+                                                    break;
+                                                default:
+                                                    $color = 'bg-label-primary';
+                                                    break;
+                                            }
 
-                                        $status_color = [
-                                            'information_exchange' => 'bg-label-primary',
-                                            'consulting_survey' => 'bg-label-info',
-                                            'quotation' => 'bg-label-warning',
-                                            'negotiation' => 'bg-label-secondary',
-                                            'contract_signed' => 'bg-label-success',
-                                            'payment_completed' => 'bg-label-dark',
-                                            'no_contract_signed' => 'bg-label-danger',
-                                        ];
+                                            return $color;
+                                        }
 
                                     @endphp
-                                    @foreach ($users as $item)
+                                    {{-- @foreach ($users as $item)
                                         <tr>
                                             <td>
                                                 <div>{{ $i++ }}</div>
                                             </td>
                                             <td>
                                                 <div class="d-flex align-items-center" style="width: 120px">
-                                                    <span class="badge bg-label-primary">{{ $item->customer->code }}</span>
+                                                    <span class="badge bg-label-primary">{{ $item->staff->code }}</span>
                                                 </div>
                                             </td>
                                             <td>
@@ -194,22 +78,14 @@
                                                             alt=""></div>
                                                     <div
                                                         class="d-flex flex-column justify-content-center align-item-center ms-2">
-                                                        <b>{{ $item->customer->fullname ?? 'N/A' }}</b>
+                                                        <b>{{ $item->name ?? 'N/A' }}</b>
                                                         <span>{{ '@' . $item->email }} </span>
                                                     </div>
 
                                                 </div>
                                             </td>
                                             <td>
-                                                <div style="width: 100px;">{{ $item->name }}</div>
-                                            </td>
-                                            <td>
-                                                <div style="width: 100px;">{{ $item->customer->industry }}</div>
-                                            </td>
-                                            <td>
-                                                <div class="badge {{ $status_color[$item->customer->status] }}"
-                                                    style="min-width: 130px; font-size: 0.7rem;">
-                                                    {{ $status[$item->customer->status] }}</div>
+                                                <div style="min-width: 100px;"><span class="badge {{ roleColor($item->role->name) }}">{{ $item->role->name }}</span></div>
                                             </td>
                                             <td>
                                                 <div style="min-width: 130px;" class="d-flex flex-column justify-content-center align-items-center">
@@ -240,6 +116,17 @@
                                                 </div>
                                             </td>
                                             <td>
+                                                <div style="width: 100px;">
+                                                    <div
+                                                    class="badge {{ $item->staff->gender == 'male' ? 'bg-label-info' : ($item->staff->gender == 'female' ? 'bg-label-warning' : 'bg-label-dark') }}">
+                                                        {{ $item->staff->gender ?? 'N/A' }}
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div style="width: 100px;"><span class="{{ $item->staff->dob ?? 'badge bg-label-dark' }}">{{ $item->staff->dob ?? 'N/A' }}</span></div>
+                                            </td>
+                                            <td>
                                                 <div style="width: 100px;">{{ $item->created_at }}</div>
                                             </td>
                                             <td>
@@ -247,12 +134,12 @@
                                             </td>
                                             <td class="text-center">
                                                 <div class="d-flex align-items-center justify-content-center">
-                                                    <a href="{{ route('customers.show', ['id' => $item->id]) }}"
+                                                    <a href="{{ route('staffs.show', ['id' => $item->id]) }}"
                                                         type="button" data-bs-toggle="tooltip" title="Sửa"
                                                         class="btn btn-link text-primary" data-original-title="Edit Task">
                                                         <i class='bx bx-edit'></i>
                                                     </a>
-                                                    <a href="{{ route('customers.show', ['id' => $item->id]) }}"
+                                                    <a href="{{ route('staffs.show', ['id' => $item->id]) }}"
                                                         type="button" data-bs-toggle="tooltip" title="Chi tiết"
                                                         class="btn btn-link text-warning" data-original-title="Edit Task">
                                                         <i class="fa-solid fa-eye"></i>
@@ -260,7 +147,7 @@
                                                 </div>
                                             </td>
                                         </tr>
-                                    @endforeach
+                                    @endforeach --}}
                                 </tbody>
                             </table>
                         </div>
