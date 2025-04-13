@@ -6,8 +6,12 @@ use Carbon\Carbon;
 @section('css')
     <style>
         .upload-box {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
             border: 2px dashed #0b2dee;
-            padding: 45px 10px;
+            padding: 0 10px;
+            min-height: 140px;
             border-radius: 10px;
             cursor: pointer;
             transition: background-color 0.3s ease;
@@ -213,7 +217,7 @@ use Carbon\Carbon;
                                             <div class="col-md-12">
                                                 <label class="upload-box w-100 text-center">
                                                     <i style="font-size: 2.2rem;"
-                                                        class='bx bx-cloud-upload fa-2x mb-2 text-purple'></i><br>
+                                                        class='bx bx-cloud-upload fa-2x text-purple'></i>
                                                     <span class="text-purple">Upload File</span>
                                                     <small class="file-name text-muted text-truncate d-block mt-1">{{ $attachment['file_path'] }}</small>
                                                     <input type="file"
@@ -297,7 +301,7 @@ use Carbon\Carbon;
                     </div>
                     <div class="col-md-12">
                         <label class="upload-box w-100 text-center">
-                            <i style="font-size: 2.2rem;" class='bx bx-cloud-upload fa-2x mb-2 text-purple'></i><br>
+                            <i style="font-size: 2.2rem;" class='bx bx-cloud-upload fa-2x text-purple'></i>
                             <span class="text-purple">Upload File</span>
                             <small class="file-name text-muted text-truncate d-block mt-1"></small>
                             <input type="file" name="attachments[${index}][file]" class="form-control upload-input" hidden />
