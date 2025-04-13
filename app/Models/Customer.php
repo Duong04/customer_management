@@ -19,4 +19,8 @@ class Customer extends Model
     public function customerContact() {
         return $this->belongsTo(CustomerContact::class, 'customer_id');
     }
+
+    public function user() {
+        return $this->hasOne(User::class, 'customer_id');
+    } 
 }

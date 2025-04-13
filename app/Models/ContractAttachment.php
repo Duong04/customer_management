@@ -10,5 +10,6 @@ class ContractAttachment extends Model
     protected $fillable = [
         'file_path',
         'note',
+        'contract_id'
     ];
 }

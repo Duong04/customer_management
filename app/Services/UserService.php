@@ -41,24 +41,6 @@ class UserService {
         }
     }
 
-    public function create($request) {
-        try {
-            $data = $request->validated();
-            $user = User::create($data);
-
-            if ($user) {
-                $data['user_detail']['user_id'] = $user->id;
-                $data['user_detail']['employee_code'] = $this->generateCodeFromName();
-                UserDetail::create($data['user_detail']);
-            }
-            toastr()->success('Người dùng đã được tạo thành công!');
-            return redirect()->back();
-        } catch (\Throwable $th) {
-            toastr()->error($th->getMessage());
-            return redirect()->back();
-        }
-    }
-
     public function createCustomer($request) {
         try {
             $data = $request->validated();
@@ -111,34 +93,6 @@ class UserService {
         }
     }
 
-    public function update($request, $id) {
-        try {
-            $data = $request->validated();
-
-            if (!$data['password']) {
-                unset($data['password']);
-            }
-            $user = User::find($id);
-
-            if (!$user) {
-                toastr()->error('Người dùng không tồn tại!');
-                return redirect()->back();
-            }
-
-            $user->update($data);
-
-            if ($user) {
-                $data['user_detail']['user_id'] = $user->id;
-                UserDetail::updateOrCreate(['user_id' => $user->id], $data['user_detail']);
-            }
-
-            toastr()->success('Người dùng đã được cập nhật thành công!');
-            return redirect()->route('users.index');
-        } catch (\Throwable $th) {
-            toastr()->error($th->getMessage());
-            return redirect()->back();
-        }
-    }
 
     public function updateCustomer($request, $id) {
         try {

@@ -116,7 +116,6 @@ return new class extends Migration
             $table->date('end_date')->nullable();
             $table->enum('status', ['valid', 'expired', 'not_yet_valid'])->default('not_yet_valid');
             $table->decimal('contract_value', 15, 2)->nullable();
-            $table->text('note')->nullable();
             $table->timestamps();
         });
         
