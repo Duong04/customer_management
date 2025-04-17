@@ -23,24 +23,25 @@ class CustomerRequest extends FormRequest
     {
         $id = $this->id;
         $rules = [
-            'fullname' => 'required|string|max:50',
-            'name' => 'required|string|max:50',
+            'company' => 'required|string|max:50',
+            'short_name' => 'required|string|max:50',
             'industry' => 'required|string|max:255',
             'status' => 'required|in:information_exchange,consulting_survey,quotation,negotiation,contract_signed,payment_completed,no_contract_signed',
-            'address' => 'nullable|string|max:255',
-            'description' => 'nullable|string',
-            'user.email' => 'required|email|unique:users,email',
-            'user.password' => 'required|string|max:255|min:8',
-            'user.is_active' => 'required',
+            'address' => 'required|string|max:255',
+            'province' => 'required|string|max:255',
+            'district' => 'required|string|max:255',
+            'ward' => 'required|string|max:255',
+            'note' => 'nullable|string',
+            'file' => 'nullable',
             'contact.name' => 'required|string|max:255',
+            'contact.email' => 'required|email|unique:customer_contacts,email',
             'contact.gender' => 'nullable|in:male,female',
             'contact.phone' => 'nullable|min:9|max:11',
             'contact.position' => 'nullable|string|max:255',
         ];
 
         if ($id) {
-            $rules['user.email'] .= ",$id";
-            $rules['user.password'] = "nullable|string|max:255";
+            $rules['contact.email'] .= ",$id,customer_id";
         }
 
         return $rules;

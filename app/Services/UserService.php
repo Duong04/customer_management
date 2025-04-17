@@ -5,8 +5,15 @@ use App\Models\EmployeeProfile;
 use App\Models\User;
 use App\Models\Customer;
 use App\Models\CustomerContact;
+use App\Services\FirebaseService;
 
 class UserService {
+    private $firebaseService;
+
+    public function __construct(FirebaseService $firebaseService) {
+        $this->firebaseService = $firebaseService;
+    }
+
     public function all($role = null) {
         try {
             $users = User::with('customer');
@@ -18,6 +25,19 @@ class UserService {
             $users = $users->orderByDesc('id')->get(); 
     
             return $users;
+        } catch (\Throwable $th) {
+            toastr()->error($th->getMessage());
+            return redirect()->back();
+        }
+    }
+
+    public function getCustomer() {
+        try {
+            $customers = Customer::query();
+    
+            $customers = $customers->orderByDesc('id')->get(); 
+    
+            return $customers;
         } catch (\Throwable $th) {
             toastr()->error($th->getMessage());
             return redirect()->back();
@@ -46,16 +66,17 @@ class UserService {
             $data = $request->validated();
 
             $data['code'] = $this->generateCodeCustomer();
+            if ($request->hasFile('file')) {
+                $file = $request->file('file');
+                $path = $this->firebaseService->uploadFile($file, 'contracts');
+                $data['file'] = $path;
+            }
             $customer = Customer::create($data);
+
 
             if ($customer) {
                 $data['contact']['customer_id'] = $customer->id;
                 CustomerContact::create($data['contact']);
-                
-                $data['user']['name'] = $data['name'];
-                $data['user']['customer_id'] = $customer->id;
-                $data['user']['role_id'] = 5;
-                user::create($data['user']);
 
                 toastr()->success('Khách hàng đã được tạo thành công!');
                 return redirect()->back();
@@ -93,26 +114,35 @@ class UserService {
         }
     }
 
+    public function findCustomerById($id) {
+        try {
+            return Customer::find($id);
+        } catch (\Throwable $th) {
+            return redirect()->back();
+        }
+    }
+
 
     public function updateCustomer($request, $id) {
         try {
             $data = $request->validated();
+            $customer = Customer::find($id);
 
-            if (!$data['user']['password']) {
-                unset($data['user']['password']);
-            }
-
-            $user = User::find($id);
-
-            if (!$user) {
+            if (!$customer) {
                 toastr()->error('Khách hàng không tồn tại!');
                 return redirect()->back();
             }
 
-            $user->customer->update($data);
+            if ($request->hasFile('file')) {
+                $file = $request->file('file');
+                $path = $this->firebaseService->uploadFile($file, 'contracts');
+                $data['file'] = $path;
+            }
 
-            if ($data['user']) {
-                $user->update($data['user']);
+            $customer->update($data);
+
+            if ($data['contact']) {
+                $customer->customerContact->update($data['contact']);
             }
             
             toastr()->success('Khách hàng đã được cập nhật thành công!');

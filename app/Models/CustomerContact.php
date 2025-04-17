@@ -12,6 +12,7 @@ class CustomerContact extends Model
         'gender',
         'phone',
         'name',
-        'position'
+        'position',
+        'email',
     ];
 }

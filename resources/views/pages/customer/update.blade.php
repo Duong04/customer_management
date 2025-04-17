@@ -11,109 +11,283 @@
                   <a href="{{ route('customers.index') }}"><small class="text-muted float-end d-flex align-item-center"><i class='bx bx-left-arrow-alt'></i> Quay về</small></a>
                 </div>
                 <div class="card-body">
-                  <form class="row" action="{{ route('customers.update', ['id' => $user->id]) }}" method="POST">
-                    @csrf
-                    @method('PUT')
-                  
-                    {{-- Họ và tên --}}
-                    <div class="col-md-4 mb-3">
-                      <label class="form-label" for="fullname">Họ và tên</label>
-                      <input value="{{ $user->customer->fullname }}" name="fullname" type="text" class="form-control" id="fullname" placeholder="Họ và tên" />
-                      @if ($errors->first('fullname'))
-                        <span class="text-danger" style="font-size: 0.8rem;">{{ $errors->first('fullname') }}</span>
-                      @endif
-                    </div>
-                  
-                    {{-- Email --}}
-                    <div class="col-md-4 mb-3">
-                      <label class="form-label" for="email">Email</label>
-                      <input value="{{ $user->email }}" name="user[email]" type="text" class="form-control" id="email" placeholder="example@gmail.com" />
-                      @if ($errors->first('user.email'))
-                        <span class="text-danger" style="font-size: 0.8rem;">{{ $errors->first('user.email') }}</span>
-                      @endif
-                    </div>
-                  
-                    {{-- Mật khẩu --}}
-                    <div class="col-md-4 mb-3">
-                      <label class="form-label" for="password">Mật khẩu</label>
-                      <input value="{{ old('user.password') }}" name="user[password]" type="password" class="form-control" id="password" placeholder="Mật khẩu" />
-                      @if ($errors->first('user.password'))
-                        <span class="text-danger" style="font-size: 0.8rem;">{{ $errors->first('user.password') }}</span>
-                      @endif
-                    </div>
-                  
-                    {{-- Tên viết tắt --}}
-                    <div class="col-md-3 mb-3">
-                      <label class="form-label" for="name">Tên viết tắt</label>
-                      <input value="{{ $user->name }}" name="name" type="text" class="form-control" id="name" placeholder="Tên viết tắt" />
-                      @if ($errors->first('name'))
-                        <span class="text-danger" style="font-size: 0.8rem;">{{ $errors->first('name') }}</span>
-                      @endif
-                    </div>
-                  
-                    {{-- Lĩnh vực --}}
-                    <div class="col-md-3 mb-3">
-                      <label class="form-label" for="industry">Lĩnh vực</label>
-                      <input value="{{ $user->customer->industry }}" name="industry" type="text" class="form-control" id="industry" placeholder="Lĩnh vực" />
-                      @if ($errors->first('industry'))
-                        <span class="text-danger" style="font-size: 0.8rem;">{{ $errors->first('industry') }}</span>
-                      @endif
-                    </div>
-                  
-                    {{-- Trạng thái --}}
-                    <div class="col-md-3 mb-3">
-                      <label class="form-label" for="status">Trạng thái</label>
-                      <select name="status" class="form-control" id="status">
-                        <option value="">-- Trạng thái --</option>
-                        <option {{ $user->customer->status == 'information_exchange' ? 'selected' : '' }} value="information_exchange">Trao đổi thông tin</option>
-                        <option {{ $user->customer->status == 'consulting_survey' ? 'selected' : '' }} value="consulting_survey">Khảo sát tư vấn</option>
-                        <option {{ $user->customer->status == 'quotation' ? 'selected' : '' }} value="quotation">Báo giá</option>
-                        <option {{ $user->customer->status == 'negotiation' ? 'selected' : '' }} value="negotiation">Đàm phán</option>
-                        <option {{ $user->customer->status == 'contract_signed' ? 'selected' : '' }} value="contract_signed">Ký hợp đồng</option>
-                        <option {{ $user->customer->status == 'payment_completed' ? 'selected' : '' }} value="payment_completed">Thanh toán nghiệm thu</option>
-                        <option {{ $user->customer->status == 'no_contract_signed' ? 'selected' : '' }} value="no_contract_signed">Không ký hợp đồng</option>
-                      </select>
-                      @if ($errors->first('status'))
-                        <span class="text-danger" style="font-size: 0.8rem;">{{ $errors->first('status') }}</span>
-                      @endif
-                    </div>
-                    <div class="col-md-3 mb-3">
-                      <label class="form-label" for="is_active">Trạng thái tài khoản</label>
-                      <select name="user[is_active]" class="form-control" id="is_active">
-                        <option value="">-- Trạng thái tài khoản --</option>
-                        <option {{ $user->is_active == 1 ? 'selected' : '' }} value="1">Hoạt động</option>
-                        <option {{ $user->is_active == 0 ? 'selected' : '' }} value="0">Không hoạt động</option>
-                      </select>
-                      @if ($errors->first('user.is_active'))
-                        <span class="text-danger" style="font-size: 0.8rem;">{{ $errors->first('user.is_active') }}</span>
-                      @endif
-                    </div>
-                  
-                    {{-- Địa chỉ --}}
-                    <div class="col-md-6 mb-3">
-                      <label class="form-label" for="address">Địa chỉ</label>
-                      <textarea name="address" rows="4" type="text" class="form-control" id="address" placeholder="Địa chỉ">{{ $user->customer->address }}</textarea>
-                      @if ($errors->first('address'))
-                        <span class="text-danger" style="font-size: 0.8rem;">{{ $errors->first('address') }}</span>
-                      @endif
-                    </div>
-                    {{-- Mô tả --}}
-                    <div class="col-md-6 mb-3">
-                      <label class="form-label" for="description">Mô tả</label>
-                      <textarea name="description" rows="4" class="form-control" id="description" placeholder="Mô tả">{{ $user->customer->description }}</textarea>
-                      @if ($errors->first('description'))
-                        <span class="text-danger" style="font-size: 0.8rem;">{{ $errors->first('description') }}</span>
-                      @endif
-                    </div>
-                  
-                    <div class="col-12">
-                      <button type="submit" class="btn btn-primary">Cập nhật</button>
-                    </div>
+                  <form class="row" action="{{ route('customers.update', ['id' => $customer->id]) }}" method="POST"
+                      enctype="multipart/form-data">
+                      @csrf
+                      @method('PUT')
+
+                      {{-- Họ và tên --}}
+                      <div class="col-md-6 mb-3">
+                          <label class="form-label" for="company">Tên đầy đủ ( <span class="text-danger">*</span>
+                              )</label>
+                          <input value="{{ $customer->company }}" name="company" type="text" class="form-control"
+                              id="company" placeholder="Tên đầy đủ" />
+                          @if ($errors->first('company'))
+                              <span class="text-danger"
+                                  style="font-size: 0.8rem;">{{ $errors->first('company') }}</span>
+                          @endif
+                      </div>
+
+                      {{-- Tên viết tắt --}}
+                      <div class="col-md-6 mb-3">
+                          <label class="form-label" for="short_name">Tên viết tắt</label>
+                          <input value="{{ $customer->short_name }}" name="short_name" type="text" class="form-control"
+                              id="short_name" placeholder="Tên viết tắt" />
+                          @if ($errors->first('short_name'))
+                              <span class="text-danger"
+                                  style="font-size: 0.8rem;">{{ $errors->first('short_name') }}</span>
+                          @endif
+                      </div>
+
+                      {{-- Lĩnh vực --}}
+                      <div class="col-md-6 mb-3">
+                          <label class="form-label" for="industry">Lĩnh vực ( <span class="text-danger">*</span>
+                              )</label>
+                          <input value="{{ $customer->industry }}" name="industry" type="text" class="form-control"
+                              id="industry" placeholder="Lĩnh vực" />
+                          @if ($errors->first('industry'))
+                              <span class="text-danger"
+                                  style="font-size: 0.8rem;">{{ $errors->first('industry') }}</span>
+                          @endif
+                      </div>
+
+                      {{-- Trạng thái --}}
+                      <div class="col-md-6 mb-3">
+                          <label class="form-label" for="status">Trạng thái ( <span class="text-danger">*</span>
+                              )</label>
+                          <select name="status" class="form-control" id="status">
+                              <option value="">-- Trạng thái --</option>
+                              <option {{ $customer->status == 'information_exchange' ? 'selected' : '' }}
+                                  value="information_exchange">Trao đổi thông tin</option>
+                              <option {{ $customer->status == 'consulting_survey' ? 'selected' : '' }}
+                                  value="consulting_survey">Khảo sát tư vấn</option>
+                              <option {{ $customer->status == 'quotation' ? 'selected' : '' }} value="quotation">Báo giá
+                              </option>
+                              <option {{ $customer->status == 'negotiation' ? 'selected' : '' }} value="negotiation">Đàm
+                                  phán</option>
+                              <option {{ $customer->status == 'contract_signed' ? 'selected' : '' }}
+                                  value="contract_signed">Ký hợp đồng</option>
+                              <option {{ $customer->status == 'payment_completed' ? 'selected' : '' }}
+                                  value="payment_completed">Thanh toán nghiệm thu</option>
+                              <option {{ $customer->status == 'no_contract_signed' ? 'selected' : '' }}
+                                  value="no_contract_signed">Không ký hợp đồng</option>
+                          </select>
+                          @if ($errors->first('status'))
+                              <span class="text-danger"
+                                  style="font-size: 0.8rem;">{{ $errors->first('status') }}</span>
+                          @endif
+                      </div>
+                      <div class="col-md-6 mb-3">
+                          <label class="form-label" for="file">Tệp đính kèm</label>
+                          <input value="{{ old('file') }}" name="file" type="file" class="form-control"
+                              id="file" placeholder="Lĩnh vực" />
+                          @if ($errors->first('file'))
+                              <span class="text-danger"
+                                  style="font-size: 0.8rem;">{{ $errors->first('file') }}</span>
+                          @endif
+                      </div>
+                      {{-- Mô tả --}}
+                      <div class="col-md-6 mb-3">
+                          <label class="form-label" for="note">Ghi chú</label>
+                          <input value="{{ $customer->note }}" type="text" name="note" rows="4"
+                              class="form-control" id="note" placeholder="Ghi chú">
+                          @if ($errors->first('note'))
+                              <span class="text-danger"
+                                  style="font-size: 0.8rem;">{{ $errors->first('note') }}</span>
+                          @endif
+                      </div>
+                      <div class="col-12 mt-2">
+                          <h5>Thông tin liên Hệ</h5>
+                          <div class="row">
+
+                              <div class="col-md-6 mb-3">
+                                  <label class="form-label" for="contact_name">Tên liên hệ ( <span
+                                          class="text-danger">*</span> )</label>
+                                  <input value="{{ $customer->customerContact->name }}" name="contact[name]" type="text"
+                                      class="form-control" id="contact_name" placeholder="Tên liên hệ" />
+                                  @if ($errors->first('contact.name'))
+                                      <span class="text-danger"
+                                          style="font-size: 0.8rem;">{{ $errors->first('contact.name') }}</span>
+                                  @endif
+                              </div>
+                              <div class="col-md-6 mb-3">
+                                  <label class="form-label" for="email">Email ( <span
+                                          class="text-danger">*</span> )</label>
+                                  <input value="{{ $customer->customerContact->email }}" name="contact[email]" type="text"
+                                      class="form-control" id="email" placeholder="Email" />
+                                  @if ($errors->first('contact.email'))
+                                      <span class="text-danger"
+                                          style="font-size: 0.8rem;">{{ $errors->first('contact.email') }}</span>
+                                  @endif
+                              </div>
+
+                              {{-- Email --}}
+                              <div class="col-md-6 mb-3">
+                                  <label class="form-label" for="phone">Số điện thoại ( <span
+                                          class="text-danger">*</span> )</label>
+                                  <input value="{{ $customer->customerContact->phone }}" name="contact[phone]" type="text"
+                                      class="form-control" id="phone" placeholder="Số điện thoại" />
+                                  @if ($errors->first('contact.phone'))
+                                      <span class="text-danger"
+                                          style="font-size: 0.8rem;">{{ $errors->first('contact.phone') }}</span>
+                                  @endif
+                              </div>
+
+                              {{-- Mật khẩu --}}
+                              <div class="col-md-6 mb-3">
+                                  <label class="form-label" for="position">Chức vụ</label>
+                                  <input value="{{ $customer->customerContact->position }}" name="contact[position]"
+                                      type="position" class="form-control" id="position" placeholder="Chức vụ" />
+                                  @if ($errors->first('contact.position'))
+                                      <span class="text-danger"
+                                          style="font-size: 0.8rem;">{{ $errors->first('contact.position') }}</span>
+                                  @endif
+                              </div>
+                              <div class="col-md-6 mb-3">
+                                  <label class="form-label" for="gender">Giới tính ( <span
+                                          class="text-danger">*</span> )</label>
+                                  <select name="contact[gender]" class="form-control" id="gender">
+                                      <option value="">-- Giới tính --</option>
+                                      <option {{ $customer->customerContact->gender == 'male' ? 'selected' : '' }}
+                                          value="male">Nam</option>
+                                      <option {{ $customer->customerContact->gender == 'female' ? 'selected' : '' }}
+                                          value="female">Nữ</option>
+                                  </select>
+                                  @if ($errors->first('contact.gender'))
+                                      <span class="text-danger"
+                                          style="font-size: 0.8rem;">{{ $errors->first('contact.gender') }}</span>
+                                  @endif
+                              </div>
+                              <div class="col-md-6 mb-3">
+                                  <label class="form-label" for="address">Địa chỉ</label>
+                                  <input type="text" value="{{ $customer->address }}" name="address"
+                                      rows="4" type="text" class="form-control" id="address"
+                                      placeholder="Địa chỉ">
+                                  @if ($errors->first('address'))
+                                      <span class="text-danger"
+                                          style="font-size: 0.8rem;">{{ $errors->first('address') }}</span>
+                                  @endif
+                              </div>
+                              <div class="col-md-6 mb-3">
+                                  <label class="form-label" for="province">Chọn tỉnh/thành</label>
+                                  <select class="form-control" name="province" id="province">
+                                      <option value="">-- Chọn tỉnh/thành --</option>
+                                  </select>
+                                  @if ($errors->first('province'))
+                                      <span class="text-danger"
+                                          style="font-size: 0.8rem;">{{ $errors->first('province') }}</span>
+                                  @endif
+                              </div>
+                              <div class="col-md-6 mb-3">
+                                  <label class="form-label" for="district">Quận / Huyện</label>
+
+                                  <select class="form-control" name="district" id="district">
+                                      <option value="">-- Chọn quận/huyện --</option>
+                                  </select>
+                                  @if ($errors->first('district'))
+                                      <span class="text-danger"
+                                          style="font-size: 0.8rem;">{{ $errors->first('district') }}</span>
+                                  @endif
+                              </div>
+                              <div class="col-md-6 mb-3">
+                                  <label class="form-label" for="ward">Phường/ Xã</label>
+
+                                  <select class="form-control" name="ward" id="ward">
+                                      <option value="">-- Chọn phường/xã --</option>
+                                  </select>
+                                  @if ($errors->first('ward'))
+                                      <span class="text-danger"
+                                          style="font-size: 0.8rem;">{{ $errors->first('ward') }}</span>
+                                  @endif
+                              </div>
+                          </div>
+
+                      </div>
+
+                      <div class="col-12">
+                          <button type="submit" class="btn btn-primary">Cập nhật</button>
+                          <a href="{{ route('customers.index') }}" class="btn btn-outline-warning">Hủy</a>
+                      </div>
                   </form>
-                  
-                </div>
+
+              </div>
               </div>
             </div>
           </div>
     </div>
 @endsection
+@section('script')
+    <script>
+        const oldProvince = "{{ $customer->province }}";
+        const oldDistrict = "{{ $customer->district }}";
+        const oldWard = "{{ $customer->ward }}";
+        const provinceSelect = document.getElementById('province');
+        const districtSelect = document.getElementById('district');
+        const wardSelect = document.getElementById('ward');
+
+        // Load tỉnh
+        fetch('https://provinces.open-api.vn/api/p/')
+            .then(res => res.json())
+            .then(data => {
+                data.forEach(p => {
+                    provinceSelect.innerHTML += `<option value="${p.code}">${p.name}</option>`;
+                });
+
+                if (oldProvince) {
+                    provinceSelect.value = oldProvince;
+                    loadDistricts(oldProvince);
+                }
+            });
+
+        // Load quận/huyện theo tỉnh
+        function loadDistricts(provinceId) {
+            fetch(`https://provinces.open-api.vn/api/p/${provinceId}?depth=2`)
+                .then(res => res.json())
+                .then(data => {
+                    districtSelect.innerHTML = '<option value="">-- Chọn quận/huyện --</option>';
+                    data.districts.forEach(d => {
+                        districtSelect.innerHTML += `<option value="${d.code}">${d.name}</option>`;
+                    });
+
+                    if (oldDistrict) {
+                        districtSelect.value = oldDistrict;
+                        loadWards(oldDistrict);
+                    }
+                });
+        }
+
+        // Load phường/xã theo huyện
+        function loadWards(districtId) {
+            fetch(`https://provinces.open-api.vn/api/d/${districtId}?depth=2`)
+                .then(res => res.json())
+                .then(data => {
+                    wardSelect.innerHTML = '<option value="">-- Chọn phường/xã --</option>';
+                    data.wards.forEach(w => {
+                        wardSelect.innerHTML += `<option value="${w.code}">${w.name}</option>`;
+                    });
+
+                    if (oldWard) {
+                        wardSelect.value = oldWard;
+                    }
+                });
+        }
+
+        // Khi chọn tỉnh
+        provinceSelect.addEventListener('change', function() {
+            districtSelect.innerHTML = '<option value="">-- Chọn quận/huyện --</option>';
+            wardSelect.innerHTML = '<option value="">-- Chọn phường/xã --</option>';
+            if (this.value) {
+                loadDistricts(this.value);
+            }
+        });
+
+        // Khi chọn huyện
+        districtSelect.addEventListener('change', function() {
+            wardSelect.innerHTML = '<option value="">-- Chọn phường/xã --</option>';
+            if (this.value) {
+                loadWards(this.value);
+            }
+        });
+    </script>
+@endsection
+

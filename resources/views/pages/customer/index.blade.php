@@ -142,11 +142,11 @@
                                     <tr>
                                         <th>Stt</th>
                                         <th>Mã Khách hàng</th>
-                                        <th>Khách hàng</th>
+                                        <th>Tên đầy đủ</th>
                                         <th>Tên viết tắt</th>
+                                        <th>Email</th>
                                         <th>Lĩnh vực</th>
                                         <th>Trạng thái</th>
-                                        <th>Trạng thái tài khoản</th>
                                         <th>Ngày tạo</th>
                                         <th>Ngày cập nhật</th>
                                         <th class="text-center">Thao tác</th>
@@ -183,61 +183,27 @@
                                             </td>
                                             <td>
                                                 <div class="d-flex align-items-center" style="width: 120px">
-                                                    <span class="badge bg-label-primary">{{ $item->customer->code }}</span>
+                                                    <span class="badge bg-label-primary">{{ $item->code }}</span>
                                                 </div>
                                             </td>
                                             <td>
-                                                <div class="d-flex align-items-center" style="min-width: 250px">
-                                                    <div class="d-block" style="width: 50px;"><img
-                                                            class="rounded-circle object-fit-cover"
-                                                            src="{{ $item->avatar }}" width="45px" height="45px"
-                                                            alt=""></div>
-                                                    <div
-                                                        class="d-flex flex-column justify-content-center align-item-center ms-2">
-                                                        <b>{{ $item->customer->fullname ?? 'N/A' }}</b>
-                                                        <span>{{ '@' . $item->email }} </span>
-                                                    </div>
-
+                                                <div class="d-flex align-items-center" style="min-width: 100px">
+                                                    {{ $item->company }}
                                                 </div>
                                             </td>
                                             <td>
-                                                <div style="width: 100px;">{{ $item->name }}</div>
+                                                <div style="width: 100px;">{{ $item->short_name }}</div>
                                             </td>
                                             <td>
-                                                <div style="width: 100px;">{{ $item->customer->industry }}</div>
+                                                <div style="min-width: 10px;">{{ $item->customerContact->email }}</div>
                                             </td>
                                             <td>
-                                                <div class="badge {{ $status_color[$item->customer->status] }}"
+                                                <div style="width: 100px;">{{ $item->industry }}</div>
+                                            </td>
+                                            <td>
+                                                <div class="badge {{ $status_color[$item->status] }}"
                                                     style="min-width: 130px; font-size: 0.7rem;">
-                                                    {{ $status[$item->customer->status] }}</div>
-                                            </td>
-                                            <td>
-                                                <div style="min-width: 130px;" class="d-flex flex-column justify-content-center align-items-center">
-                                                    <div
-                                                        id="status-{{ $item->id }}"
-                                                        class="badge {{ $item->is_active ? 'bg-label-success' : 'bg-label-danger' }}">
-                                                        {{ $item->is_active ? 'Hoạt động' : 'Không hoạt động' }}</div>
-                                                    <div class="toggler">
-                                                        <input class="change-status" data-id="{{ $item->id }}" id="toggler-1" {{ $item->is_active ? 'checked' : '' }} name="toggler-1" type="checkbox"
-                                                            value="1">
-                                                        <label for="toggler-1">
-                                                            <svg class="toggler-on" version="1.1"
-                                                                xmlns="http://www.w3.org/2000/svg"
-                                                                viewBox="0 0 130.2 130.2">
-                                                                <polyline class="path check"
-                                                                    points="100.2,40.2 51.5,88.8 29.8,67.5"></polyline>
-                                                            </svg>
-                                                            <svg class="toggler-off" version="1.1"
-                                                                xmlns="http://www.w3.org/2000/svg"
-                                                                viewBox="0 0 130.2 130.2">
-                                                                <line class="path line" x1="34.4" y1="34.4"
-                                                                    x2="95.8" y2="95.8"></line>
-                                                                <line class="path line" x1="95.8" y1="34.4"
-                                                                    x2="34.4" y2="95.8"></line>
-                                                            </svg>
-                                                        </label>
-                                                    </div>
-                                                </div>
+                                                    {{ $status[$item->status] }}</div>
                                             </td>
                                             <td>
                                                 <div style="width: 100px;">{{ $item->created_at }}</div>

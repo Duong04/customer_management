@@ -8,16 +8,21 @@ class Customer extends Model
 {
     protected $table = 'customers';
     protected $fillable = [
-        'fullname',
+        'company',
+        'short_name',
         'code',
         'address',
         'industry',
         'note',
-        'status'
+        'status',
+        'file',
+        'province',
+        'district',
+        'ward',
     ];
 
     public function customerContact() {
-        return $this->belongsTo(CustomerContact::class, 'customer_id');
+        return $this->hasOne(CustomerContact::class, 'customer_id');
     }
 
     public function user() {

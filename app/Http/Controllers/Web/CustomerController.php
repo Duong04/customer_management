@@ -16,7 +16,7 @@ class CustomerController extends Controller
     }
 
     public function index() {
-        $users = $this->userService->all(5);
+        $users = $this->userService->getCustomer();
         return view('pages.customer.index', compact('users'));
     }
 
@@ -29,13 +29,13 @@ class CustomerController extends Controller
     }
 
     public function show($id) {
-        $user = $this->userService->findById($id);
+        $customer = $this->userService->findCustomerById($id);
 
-        if (!$user) {
+        if (!$customer) {
             abort(404);
         }
 
-        return view('pages.customer.update', compact('user'));
+        return view('pages.customer.update', compact('customer'));
     }
 
     public function update(CustomerRequest $request, $id) {

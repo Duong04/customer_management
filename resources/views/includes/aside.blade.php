@@ -103,29 +103,23 @@
         <li class="menu-header small text-uppercase">
             <span class="menu-header-text">Pages</span>
         </li>
+        <li class="menu-item {{ request()->routeIs('customers.index') ? 'active' : ''}}">
+            <a href="{{ route('customers.index') }}" class="menu-link">
+                <i class='bx bx-user menu-icon tf-icons'></i>
+                <div data-i18n="Misc">Quản lý khách hàng</div>
+            </a>
+        </li>
         <li class="menu-item {{ request()->routeIs('contracts.index') ? 'active' : ''}}">
             <a href="{{ route('contracts.index') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-cube-alt"></i>
                 <div data-i18n="Misc">Quản lý hợp đồng</div>
             </a>
         </li>
-        <li class="menu-item {{ request()->routeIs('customers.index') || request()->routeIs('staffs.index') ? 'active' : ''}}">
-            <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-user"></i>
-                <div data-i18n="Account Settings">Quản lý người dùng</div>
+        <li class="menu-item {{ request()->routeIs('staffs.index') ? 'active' : ''}}">
+            <a href="{{ route('staffs.index') }}" class="menu-link">
+                <i class='bx bxs-user menu-icon tf-icons'></i>
+                <div data-i18n="Misc">Quản lý nhân sự</div>
             </a>
-            <ul class="menu-sub">
-                <li class="menu-item {{ request()->routeIs('customers.index') ? 'active' : ''}}">
-                    <a href="{{ route('customers.index') }}" class="menu-link">
-                        <div data-i18n="Account">Quản lý khách hàng</div>
-                    </a>
-                </li>
-                <li class="menu-item {{ request()->routeIs('staffs.index') ? 'active' : ''}}">
-                    <a href="{{ route('staffs.index') }}" class="menu-link">
-                        <div data-i18n="Notifications">Quản lý nhân sự</div>
-                    </a>
-                </li>
-            </ul>
         </li>
         <li class="menu-item {{ request()->routeIs('roles.index') || request()->routeIs('actions.index') || request()->routeIs('permissions.index') ? 'active' : ''}}">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
