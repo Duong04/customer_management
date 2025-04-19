@@ -24,12 +24,24 @@ class ContractController extends Controller
     }
 
     public function create() {
-        $customers = $this->userService->all(5);
+        $customers = $this->userService->getCustomer();
         return view('pages.contract.create', compact('customers'));
     }
 
     public function store(ContractRequest $request) {
         return $this->contractService->create($request);
+    }
+
+    public function edit($id) {
+        $contract = $this->contractService->findById($id);
+
+        if (!$contract) {
+            abort(404);
+        }
+
+        $customers = $this->userService->getCustomer();
+
+        return view('pages.contract.update', compact('contract', 'customers'));
     }
 
     public function show($id) {
@@ -39,9 +51,7 @@ class ContractController extends Controller
             abort(404);
         }
 
-        $customers = $this->userService->all(5);
-
-        return view('pages.contract.update', compact('contract', 'customers'));
+        return view('pages.contract.show', compact('contract'));
     }
 
     public function update(ContractRequest $request, $id) {

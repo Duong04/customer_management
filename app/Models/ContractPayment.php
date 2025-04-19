@@ -16,6 +16,5 @@ class ContractPayment extends Model
         'amount',
         'payment_date',
         'status',
-        'note',
     ];
 }

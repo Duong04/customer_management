@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StaffRequest;
+use App\Services\ContractService;
 use Illuminate\Http\Request;
 use App\Services\UserService;
 use App\Services\RoleService;
@@ -12,9 +13,11 @@ class StaffController extends Controller
 {
     private $userService;
     private $roleService;
-    public function __construct(UserService $userService, RoleService $roleService) {
+    private $contractService;
+    public function __construct(UserService $userService, RoleService $roleService, ContractService $contractService) {
         $this->userService = $userService;
         $this->roleService = $roleService;
+        $this->contractService = $contractService;
     }
 
     public function index() {
@@ -33,6 +36,17 @@ class StaffController extends Controller
     }
 
     public function show($id) {
+        $user = $this->userService->findById($id);
+        
+        if (!$user) {
+            abort(404);
+        }
+        $contracts = $this->contractService->all($id);
+        
+        return view('pages.staff.show', compact('user', 'contracts'));
+    }
+
+    public function edit($id) {
         $roles = $this->roleService->all(5);
         $user = $this->userService->findById($id);
 

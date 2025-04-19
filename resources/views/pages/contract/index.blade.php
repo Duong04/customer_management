@@ -65,20 +65,11 @@
                                                 </div>
                                             </td>
                                             <td>
-                                                <div style="min-width: 160px;">{{ $item->name }}</div>
+                                                <div style="min-width: 120px;">{{ $item->name }}</div>
                                             </td>
                                             <td>
-                                                <div class="d-flex align-items-center" style="min-width: 250px">
-                                                    <div class="d-block" style="width: 50px;"><img
-                                                            class="rounded-circle object-fit-cover"
-                                                            src="{{ $item->customer->user->avatar }}" width="45px" height="45px"
-                                                            alt=""></div>
-                                                    <div
-                                                        class="d-flex flex-column justify-content-center align-item-center ms-2">
-                                                        <b>{{ $item->customer->fullname ?? 'N/A' }}</b>
-                                                        <span>{{ '@' . $item->customer->user->email }} </span>
-                                                    </div>
-
+                                                <div class="d-flex align-items-center" style="min-width: 170px">
+                                                    {{ $item->customer->company }} ( {{ $item->customer->short_name }} )
                                                 </div>
                                             </td>
                                             <td>
@@ -104,22 +95,22 @@
                                                 </div>
                                             </td>
                                             <td>
-                                                <div style="min-width: 100px;"><span class="{{ $item->sign_date ?? 'badge bg-label-dark' }}">{{ $item->sign_date ?? 'N/A' }}</span></div>
+                                                <div style="min-width: 100px;"><span class="{{ $item->sign_date ?? 'badge bg-label-dark' }}">{{ format_date($item->sign_date) ?? 'N/A' }}</span></div>
                                             </td>
                                             <td>
-                                                <div style="min-width: 130px;"><span class="{{ $item->start_date ?? 'badge bg-label-dark' }}">{{ $item->start_date ?? 'N/A' }}</span></div>
+                                                <div style="min-width: 130px;"><span class="{{ $item->start_date ?? 'badge bg-label-dark' }}">{{ format_date($item->start_date) ?? 'N/A' }}</span></div>
                                             </td>
                                             <td>
-                                                <div style="min-width: 130px;"><span class="{{ $item->end_date ?? 'badge bg-label-dark' }}">{{ $item->end_date ?? 'N/A' }}</span></div>
+                                                <div style="min-width: 130px;"><span class="{{ $item->end_date ?? 'badge bg-label-dark' }}">{{ format_date($item->end_date) ?? 'N/A' }}</span></div>
                                             </td>
                                             <td class="text-center">
                                                 <div class="d-flex align-items-center justify-content-center">
-                                                    <a href="{{ route('contracts.show', ['id' => $item->id]) }}"
+                                                    <a href="{{ route('contracts.edit', ['id' => $item->id]) }}"
                                                         type="button" data-bs-toggle="tooltip" title="Sửa"
                                                         class="btn btn-link text-primary" data-original-title="Edit Task">
                                                         <i class='bx bx-edit'></i>
                                                     </a>
-                                                    <a href="{{ route('staffs.show', ['id' => $item->id]) }}"
+                                                    <a href="{{ route('contracts.show', ['id' => $item->id]) }}"
                                                         type="button" data-bs-toggle="tooltip" title="Chi tiết"
                                                         class="btn btn-link text-warning" data-original-title="Edit Task">
                                                         <i class="fa-solid fa-eye"></i>

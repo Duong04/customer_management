@@ -15,9 +15,15 @@ class ContractService {
         $this->firebaseService = $firebaseService;
     }
 
-    public function all() {
+    public function all($user = null) {
         try {
-            $contracts = Contract::orderByDesc('id')->get();
+            $contracts = Contract::query();
+
+            if ($user) {
+                $contracts->where('created_by', $user);
+            } 
+            
+            $contracts = $contracts->orderByDesc('id')->get();
 
             return $contracts;
         } catch (\Throwable $th) {
@@ -63,7 +69,7 @@ class ContractService {
                     'contract_id' => $contract->id,
                     'changed_by' => Auth::id(),
                     'action' => 'Create',
-                    'note' => "Người dùng ". Auth::user()->name ."vừa thực hiện thao tác tạo hợp đồng!"
+                    'note' => "Người dùng ". Auth::user()->name ." vừa thực hiện thao tác tạo hợp đồng!"
                 ]);
 
                 toastr()->success('Hợp đồng đã được tạo thành công!');
@@ -78,7 +84,9 @@ class ContractService {
 
     public function findById($id) {
         try {
-            return Contract::find($id);
+            return Contract::with(['contractHistories' => function ($query) {
+                $query->latest();
+            }])->find($id);
         } catch (\Throwable $th) {
             return redirect()->back();
         }
@@ -156,7 +164,7 @@ class ContractService {
                     'contract_id' => $contract->id,
                     'changed_by' => Auth::id(),
                     'action' => 'Update',
-                    'note' => "Người dùng ". Auth::user()->name ."vừa thực hiện thao tác cập nhật hợp đồng!"
+                    'note' => "Người dùng ". Auth::user()->name ." vừa thực hiện thao tác cập nhật hợp đồng!"
                 ]);
 
                 toastr()->success('Hợp đồng đã được cập nhật thành công!');
@@ -188,6 +196,25 @@ class ContractService {
             return redirect()->back();
         }
     }
+
+    public function statsByStatus($status = null)
+    {
+        try {
+            $contracts = Contract::query();
+
+            if ($status) {
+                $contracts->where('status', $status);
+            }
+
+            return [
+                'count' => $contracts->count(),
+                'total_value' => $contracts->sum('contract_value'),
+            ];
+        } catch (\Throwable $th) {
+            return response()->json(['error' => $th->getMessage()], 400);
+        }
+    }
+
 
     private function generateCode()
     {

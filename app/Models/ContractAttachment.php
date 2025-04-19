@@ -9,7 +9,6 @@ class ContractAttachment extends Model
     protected $table = 'contract_attachments';
     protected $fillable = [
         'file_path',
-        'note',
         'contract_id'
     ];
 }

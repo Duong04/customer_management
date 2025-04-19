@@ -1,5 +1,5 @@
 @php
-use Carbon\Carbon;
+    use Carbon\Carbon;
 @endphp
 @extends('layouts.master-layout', ['title' => 'Admin - Tạo hợp đồng'])
 
@@ -70,12 +70,13 @@ use Carbon\Carbon;
                                 Quay về</small></a>
                     </div>
                     <div class="card-body">
-                        <form class="row" action="{{ route('contracts.store') }}" method="POST" enctype="multipart/form-data">
+                        <form class="row" action="{{ route('contracts.store') }}" method="POST"
+                            enctype="multipart/form-data">
                             @csrf
 
                             {{-- Tên hợp đồng --}}
-                            <div class="col-md-4 mb-3">
-                                <label class="form-label" for="name">Tên hợp đồng</label>
+                            <div class="col-md-6">
+                                <label class="form-label" for="name">Tên hợp đồng ( <span class="text-danger">*</span> )</label>
                                 <input value="{{ old('name') }}" name="name" type="text" class="form-control"
                                     id="name" placeholder="Nhập tên hợp đồng" />
                                 @error('name')
@@ -83,25 +84,15 @@ use Carbon\Carbon;
                                 @enderror
                             </div>
 
-                            {{-- Người ký --}}
-                            <div class="col-md-4 mb-3">
-                                <label class="form-label" for="signer">Người ký</label>
-                                <input value="{{ old('signer') }}" name="signer" type="text" class="form-control"
-                                    id="signer" placeholder="Tên người ký" />
-                                @error('signer')
-                                    <span class="text-danger" style="font-size: 0.8rem;">{{ $message }}</span>
-                                @enderror
-                            </div>
-
                             {{-- Khách hàng --}}
-                            <div class="col-md-4 mb-3">
-                                <label class="form-label" for="customer_id">Khách hàng</label>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label" for="customer_id">Khách hàng ( <span class="text-danger">*</span> )</label>
                                 <select name="customer_id" class="form-control" id="customer_id">
                                     <option value="">-- Chọn khách hàng --</option>
                                     @foreach ($customers as $customer)
-                                        <option value="{{ $customer->customer->id }}"
-                                            {{ old('customer_id') == $customer->customer->id ? 'selected' : '' }}>
-                                            {{ $customer->customer->fullname }} ({{ $customer->name }})</option>
+                                        <option value="{{ $customer->id }}"
+                                            {{ old('customer_id') == $customer->id ? 'selected' : '' }}>
+                                            {{ $customer->company }} ({{ $customer->short_name }})</option>
                                     @endforeach
                                 </select>
                                 @error('customer_id')
@@ -109,28 +100,60 @@ use Carbon\Carbon;
                                 @enderror
                             </div>
 
-                            {{-- Ngày ký --}}
-                            <div class="col-md-4 mb-3">
-                                <label class="form-label" for="sign_date">Ngày ký</label>
-                                <input value="{{ old('sign_date', Carbon::now()->format('Y-m-d') ) }}" name="sign_date" type="date" class="form-control"
-                                    id="sign_date" />
-                                @error('sign_date')
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label" for="signer">Người ký ( <span class="text-danger">*</span> )</label>
+                                <input value="{{ old('signer') }}" name="signer" type="text" class="form-control"
+                                    id="signer" placeholder="Tên người ký" />
+                                @error('signer')
                                     <span class="text-danger" style="font-size: 0.8rem;">{{ $message }}</span>
                                 @enderror
                             </div>
 
                             {{-- Ngày bắt đầu --}}
-                            <div class="col-md-4 mb-3">
-                                <label class="form-label" for="start_date">Ngày bắt đầu</label>
-                                <input value="{{ old('start_date', Carbon::now()->format('Y-m-d')) }}" name="start_date" type="date"
-                                    class="form-control" id="start_date" />
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label" for="start_date">Ngày bắt đầu ( <span class="text-danger">*</span> )</label>
+                                <input value="{{ old('start_date', Carbon::now()->format('Y-m-d')) }}" name="start_date"
+                                    type="date" class="form-control" id="start_date" />
                                 @error('start_date')
                                     <span class="text-danger" style="font-size: 0.8rem;">{{ $message }}</span>
                                 @enderror
                             </div>
 
-                            {{-- Ngày kết thúc --}}
-                            <div class="col-md-4 mb-3">
+                            {{-- Ngày ký --}}
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label" for="sign_date">Ngày ký ( <span class="text-danger">*</span> )</label>
+                                <input value="{{ old('sign_date', Carbon::now()->format('Y-m-d')) }}" name="sign_date"
+                                    type="date" class="form-control" id="sign_date" />
+                                @error('sign_date')
+                                    <span class="text-danger" style="font-size: 0.8rem;">{{ $message }}</span>
+                                @enderror
+                            </div>
+
+
+                            {{-- Trạng thái --}}
+                            @php
+                                $startDate = old('start_date', Carbon::now()->format('Y-m-d'));
+                                $status = old('status');
+
+                                if (!$status) {
+                                    $status = Carbon::parse($startDate)->gt(Carbon::now()) ? 'not_yet_valid' : 'valid';
+                                }
+                            @endphp
+
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label" for="status">Trạng thái</label>
+                                <select name="status" class="form-control" id="status">
+                                    <option value="">-- Trạng thái --</option>
+                                    <option value="valid" {{ $status == 'valid' ? 'selected' : '' }}>Đang hiệu lực
+                                    </option>
+                                    <option value="expired" {{ $status == 'expired' ? 'selected' : '' }}>Hết hạn</option>
+                                    <option value="not_yet_valid" {{ $status == 'not_yet_valid' ? 'selected' : '' }}>Chưa
+                                        có
+                                        hiệu lực</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-6 mb-3">
                                 <label class="form-label" for="end_date">Ngày kết thúc</label>
                                 <input value="{{ old('end_date') }}" name="end_date" type="date" class="form-control"
                                     id="end_date" />
@@ -139,25 +162,18 @@ use Carbon\Carbon;
                                 @enderror
                             </div>
 
-                            {{-- Trạng thái --}}
-                            <div class="col-md-4 mb-3">
-                                <label class="form-label" for="status">Trạng thái</label>
-                                <select name="status" class="form-control" id="status">
-                                    <option value="">-- Trạng thái --</option>
-                                    <option value="valid" {{ old('status') == 'valid' ? 'selected' : '' }}>Đang hiệu lực
-                                    </option>
-                                    <option value="expired" {{ old('status') == 'expired' ? 'selected' : '' }}>Hết hạn
-                                    </option>
-                                    <option value="not_yet_valid" {{ old('status') == 'not_yet_valid' ? 'selected' : '' }}>Chưa có hiệu lực</option>
-                                </select>
-                                @error('status')
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label" for="customer_representative">Đại diện khách hàng ( <span class="text-danger">*</span> )</label>
+                                <input value="{{ old('customer_representative') }}" name="customer_representative" type="text"
+                                    step="0.01" class="form-control" id="customer_representative" placeholder="Đại diện khách hàng" />
+                                @error('customer_representative')
                                     <span class="text-danger" style="font-size: 0.8rem;">{{ $message }}</span>
                                 @enderror
                             </div>
 
                             {{-- Giá trị hợp đồng --}}
-                            <div class="col-md-4 mb-3">
-                                <label class="form-label" for="contract_value">Giá trị hợp đồng</label>
+                            <div class="col-md-12 mb-3">
+                                <label class="form-label" for="contract_value">Giá trị hợp đồng ( <span class="text-danger">*</span> )</label>
                                 <input value="{{ old('contract_value') }}" name="contract_value" type="number"
                                     step="0.01" class="form-control" id="contract_value" placeholder="Nhập giá trị" />
                                 @error('contract_value')
@@ -184,7 +200,7 @@ use Carbon\Carbon;
 
                             {{-- File đính kèm --}}
                             @php
-                                $attachments = old('attachments', [['note' => '', 'file' => null]]);
+                                $attachments = old('attachments', [['file' => null]]);
                             @endphp
                             <div class="form-group col-12">
                                 <label>Tệp đính kèm</label>
@@ -201,24 +217,13 @@ use Carbon\Carbon;
                                                 </div>
                                             </div>
 
-                                            <div class="col-md-12 my-2">
-                                                <input type="text"
-                                                    name="attachments[{{ $index }}][note]"
-                                                    class="form-control" value="{{ $attachment['note'] }}"
-                                                    placeholder="Mô tả tệp" />
-                                                @error("attachments.$index.note")
-                                                    <span class="text-danger fs-7">{{ $message }}</span>
-                                                @enderror
-                                            </div>
-
                                             <div class="col-md-12">
                                                 <label class="upload-box w-100 text-center">
                                                     <i style="font-size: 2.2rem;"
                                                         class='bx bx-cloud-upload fa-2x text-purple'></i>
                                                     <span class="text-purple">Upload File</span>
                                                     <small class="file-name text-muted text-truncate d-block mt-1"></small>
-                                                    <input type="file"
-                                                        name="attachments[{{ $index }}][file]"
+                                                    <input type="file" name="attachments[{{ $index }}][file]"
                                                         class="form-control upload-input" hidden />
                                                 </label>
                                                 @error("attachments.$index.file")
@@ -232,16 +237,17 @@ use Carbon\Carbon;
 
                             {{-- Ghi chú --}}
                             <div class="col-md-12 mb-3">
-                                <label class="form-label" for="description">Mô tả hợp đồng</label>
-                                <textarea name="description" rows="4" class="form-control" id="description" placeholder="Mô tả hợp đồng">{{ old('description') }}</textarea>
-                                @error('description')
+                                <label class="form-label" for="note">Ghi chú</label>
+                                <textarea name="note" rows="4" class="form-control" id="note" placeholder="Ghi chú">{{ old('note') }}</textarea>
+                                @error('note')
                                     <span class="text-danger" style="font-size: 0.8rem;">{{ $message }}</span>
                                 @enderror
                             </div>
 
 
                             <div class="col-12">
-                                <button type="submit" class="btn btn-primary">Tạo ngay</button>
+                                <button type="submit" class="btn btn-primary">Lưu</button>
+                                <a href="{{ route('contracts.index') }}" class="btn btn-outline-warning">Hủy</a>
                             </div>
                         </form>
 
@@ -255,9 +261,6 @@ use Carbon\Carbon;
     <script>
         const oldPayments = @json(old('payments', [])); // Dữ liệu cũ của các trường 'payments'
         const errors = @json($errors->get('payments.*')); // Lỗi validation
-
-        console.log(oldPayments)
-        console.log(errors)
 
         document.addEventListener("DOMContentLoaded", function() {
             let wrapper = document.getElementById("attachment-wrapper");
@@ -292,9 +295,6 @@ use Carbon\Carbon;
                         <div class="text-primary cursor-pointer btn-plus add-attachment">
                             <i class="bx bx-plus"></i>
                         </div>
-                    </div>
-                    <div class="col-md-12 my-2">
-                        <input type="text" name="attachments[${index}][note]" class="form-control" placeholder="Mô tả tệp" />
                     </div>
                     <div class="col-md-12">
                         <label class="upload-box w-100 text-center">
@@ -332,6 +332,28 @@ use Carbon\Carbon;
                     fileInput.closest("label").querySelector(".file-name").textContent = fileName;
                 }
             });
+
+            const startDateInput = document.getElementById('start_date');
+            const statusSelect = document.getElementById('status');
+
+            function updateStatusBasedOnDate() {
+                const today = new Date().toISOString().split('T')[0];
+                const selectedDate = startDateInput.value;
+
+                if (!selectedDate) return;
+
+                if (selectedDate > today) {
+                    statusSelect.value = 'not_yet_valid';
+                } else {
+                    statusSelect.value = 'valid';
+                }
+            }
+
+            // Gọi khi trang load
+            updateStatusBasedOnDate();
+
+            // Gọi lại khi người dùng đổi ngày
+            startDateInput.addEventListener('change', updateStatusBasedOnDate);
         });
 
         document.addEventListener('DOMContentLoaded', function() {
@@ -341,7 +363,8 @@ use Carbon\Carbon;
 
             const paymentTemplate = (data = {}, errors = {}, index = 0) => {
                 const getError = (field) => errors?.[`payments.${index}.${field}`] ?
-                    `<div style="font-size: 0.8rem;" class="text-danger mt-1">${errors[`payments.${index}.${field}`][0]}</div>` : '';
+                    `<div style="font-size: 0.8rem;" class="text-danger mt-1">${errors[`payments.${index}.${field}`][0]}</div>` :
+                    '';
                 const value = (field) => data[field] || '';
 
                 return `
@@ -352,7 +375,7 @@ use Carbon\Carbon;
 
                     <div class="row">
                         <div class="col-md-4 mb-3">
-                            <label>Phương thức thanh toán</label>
+                            <label>Phương thức thanh toán ( <span class="text-danger">*</span> )</label>
                             <select name="payments[${index}][payment_method]" class="form-control payment-method-select">
                                 <option value="">-- Chọn phương thức --</option>
                                 <option value="cash" ${value('payment_method') === 'cash' ? 'selected' : ''}>Tiền mặt</option>
@@ -362,12 +385,12 @@ use Carbon\Carbon;
                             ${getError('payment_method')}
                         </div>
                         <div class="col-md-4 mb-3">
-                            <label>Số tiền</label>
+                            <label>Số tiền ( <span class="text-danger">*</span> )</label>
                             <input name="payments[${index}][amount]" type="number" step="0.01" class="form-control" value="${value('amount')}" placeholder="100000">
                             ${getError('amount')}
                         </div>
                         <div class="col-md-4 mb-3">
-                            <label>Trạng thái</label>
+                            <label>Trạng thái ( <span class="text-danger">*</span> )</label>
                             <select name="payments[${index}][status]" class="form-control">
                                 <option value="">-- Trạng thái --</option>
                                 <option value="pending" ${value('status') === 'pending' ? 'selected' : ''}>Đang chờ</option>
@@ -384,28 +407,22 @@ use Carbon\Carbon;
                         <div class="col-12">
                             <div class="row">
                                 <div class="col-md-4 mb-3">
-                                    <label class="form-label">Tên ngân hàng</label>
+                                    <label class="form-label">Tên ngân hàng ( <span class="text-danger">*</span> )</label>
                                     <input name="payments[${index}][bank_name]" type="text" class="form-control" value="${value('bank_name')}" placeholder="Ví dụ: Vietcombank" />
                                     ${getError('bank_name')}
                                 </div>
                                 <div class="col-md-4 mb-3">
-                                    <label class="form-label">Số tài khoản</label>
+                                    <label class="form-label">Số tài khoản ( <span class="text-danger">*</span> )</label>
                                     <input name="payments[${index}][account_number]" type="text" class="form-control" value="${value('account_number')}" placeholder="Nhập số tài khoản" />
                                     ${getError('account_number')}
                                 </div>
                                 <div class="col-md-4 mb-3">
-                                    <label class="form-label">Chủ tài khoản</label>
+                                    <label class="form-label">Chủ tài khoản ( <span class="text-danger">*</span> )</label>
                                     <input name="payments[${index}][account_holder]" type="text" class="form-control" value="${value('account_holder')}" placeholder="Tên chủ tài khoản" />
                                     ${getError('account_holder')}
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="mb-3">
-                        <label>Ghi chú</label>
-                        <textarea name="payments[${index}][note]" rows="3" class="form-control" placeholder="Ghi chú...">${value('note')}</textarea>
-                        ${getError('note')}
                     </div>
                 </div>
                 `;

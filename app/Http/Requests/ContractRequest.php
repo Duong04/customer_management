@@ -25,7 +25,8 @@ class ContractRequest extends FormRequest
         $id = $this->id;
         $rules = [
             'name' => ['required', 'string', 'max:255'],
-            'description' => ['nullable', 'string'],
+            'note' => ['nullable', 'string'],
+            'customer_representative' => ['required', 'string'],
             'signer' => ['required', 'string', 'max:255'],
             'customer_id' => ['required', 'exists:customers,id'],
             'sign_date' => ['required', 'date'],
@@ -37,13 +38,11 @@ class ContractRequest extends FormRequest
             'payments.*.payment_method' => ['required', 'in:cash,bank_transfer,credit_card'],
             'payments.*.amount' => ['required', 'numeric', 'min:0'],
             'payments.*.status' => ['required', 'in:pending,completed'],
-            'payments.*.note' => ['nullable', 'string', 'max:255'],
 
             'payments.*.bank_name' => ['nullable', 'required_if:payments.*.payment_method,bank_transfer', 'string', 'max:100'],
             'payments.*.account_number' => ['nullable', 'required_if:payments.*.payment_method,bank_transfer', 'string', 'max:50'],
             'payments.*.account_holder' => ['nullable', 'required_if:payments.*.payment_method,bank_transfer', 'string', 'max:100'],
             'attachments' => ['nullable', 'array'],
-            'attachments.*.note' => ['nullable' ,'string', 'max:255'],
             'attachments.*.file' => ['nullable', 'max:10240'],
         ];
 

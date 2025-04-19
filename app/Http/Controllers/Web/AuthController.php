@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ProfileRequest;
 use Illuminate\Http\Request;
 use App\Http\Requests\LoginRequest;
 use App\Services\AuthService;
@@ -24,5 +25,13 @@ class AuthController extends Controller
 
     public function logout(Request $request) {
         return $this->authService->logout($request);
+    }
+
+    public function show() {
+        return view('pages.auth.profile');
+    }
+
+    public function updateProfile(ProfileRequest $request) {
+        return $this->authService->updateProfile($request);
     }
 }

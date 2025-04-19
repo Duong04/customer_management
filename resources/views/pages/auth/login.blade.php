@@ -1,4 +1,4 @@
-@extends('layouts.auth-layout', ['title' => 'Login'])
+@extends('layouts.auth-layout', ['title' => 'Đăng nhập'])
 @section('content')
 <div class="card">
     <div class="card-body">
@@ -65,7 +65,7 @@
       </div>
       <!-- /Logo -->
       <h4 class="mb-2">Welcome to Sneat! 👋</h4>
-      <p class="mb-4">Please sign-in to your account and start the adventure</p>
+      <p class="mb-4">Vui lòng đăng nhập vào tài khoản của bạn và bắt đầu cuộc phiêu lưu</p>
 
       <form id="formAuthentication" class="mb-3 pb-2" action="{{ route('action.login') }}" method="POST">
         @csrf
@@ -85,7 +85,9 @@
           @endif
         </div>
         <div class="mb-3 form-password-toggle">
+          <label for="password" class="form-label">Mật khẩu</label>
           <div class="input-group input-group-merge">
+
             <input
               type="password"
               id="password"
@@ -104,11 +106,11 @@
         <div class="mb-3">
           <div class="form-check">
             <input class="form-check-input" type="checkbox" id="remember-me" />
-            <label class="form-check-label" for="remember-me"> Remember Me </label>
+            <label class="form-check-label" for="remember-me"> Lưu mật khẩu </label>
           </div>
         </div>
         <div class="mb-3">
-          <button class="btn btn-primary d-grid w-100" type="submit">Sign in</button>
+          <button class="btn btn-primary d-grid w-100" type="submit">Đăng nhập</button>
         </div>
       </form>
     </div>

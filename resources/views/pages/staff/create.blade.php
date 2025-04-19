@@ -124,7 +124,8 @@
                     </div>
                   
                     <div class="col-12">
-                      <button type="submit" class="btn btn-primary">Thêm ngay</button>
+                      <button type="submit" class="btn btn-primary">Lưu</button>
+                      <a href="{{ route('staffs.index') }}" class="btn btn-outline-warning">Hủy</a>
                     </div>
                   </form>
                   

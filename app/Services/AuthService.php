@@ -1,10 +1,19 @@
 <?php
 namespace App\Services;
 
+use App\Models\EmployeeProfile;
 use App\Models\User;
 use Auth;
+use App\Services\CloundinaryService;
+use App\Services\FirebaseService;
 
 class AuthService {
+    private $cloundinaryService;
+    private $firebaseService;
+    public function __construct(CloundinaryService $cloundinaryService, FirebaseService $firebaseService) {
+        $this->cloundinaryService = $cloundinaryService;
+        $this->firebaseService = $firebaseService;
+    }
     public function login($request) {
         try {
             $user = $request->validated();
@@ -46,5 +55,45 @@ class AuthService {
             toastr()->error($th->getMessage());
             return redirect()->back();
         }
+    }
+
+    public function updateProfile($request) {
+        try {
+            $data = $request->validated();
+            $user = Auth::user();
+
+            if ($request->hasFile('avatar')) {
+                $data['avatar'] = $this->firebaseService->uploadFile($request->file('avatar'), 'avatar');
+            }
+
+            $user->update($data);
+
+            if (isset($data['staff'])) {
+                if (!$user?->staff) {
+                    $data['staff']['code'] = $this->generateCodeStaff();
+
+                    $user->staff()->create($data['staff']);
+                }else {
+                    $user->staff->update($data['staff']);
+                }
+            } 
+
+            toastr()->success('Cập nhật thông tin thành công');
+            return redirect()->back();
+        } catch (\Throwable $th) {
+            toastr()->error($th->getMessage());
+            return redirect()->back();
+        }
+    }
+
+    private function generateCodeStaff()
+    {
+        $max_code = EmployeeProfile::max('code');
+        if ($max_code) {
+            $lastNumber = (int) substr($max_code, 3);
+            return 'MNV' . sprintf('%05d', $lastNumber + 1);
+        }
+
+        return 'MNV00001';
     }
 }

@@ -19,6 +19,8 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middl
 
 Route::middleware('auth')->prefix('admin')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/profile', [AuthController::class, 'show'])->name('profile');
+    Route::put('/profile', [AuthController::class, 'updateProfile'])->name('profile.update');
 
     Route::controller(RoleController::class)->prefix('roles')->group(function () {
         Route::get('/', 'index')->name('roles.index');
@@ -52,6 +54,7 @@ Route::middleware('auth')->prefix('admin')->group(function () {
         Route::get('/create', 'create')->name('customers.create');
         Route::post('/create', 'store')->name('customers.store');
         Route::get('/{id}', 'show')->name('customers.show');
+        Route::get('/{id}/edit', 'edit')->name('customers.edit');
         Route::put('/{id}', 'update')->name('customers.update');
         Route::delete('/{id}', 'delete')->name('customers.delete');
     });
@@ -61,6 +64,7 @@ Route::middleware('auth')->prefix('admin')->group(function () {
         Route::get('/create', 'create')->name('staffs.create');
         Route::post('/create', 'store')->name('staffs.store');
         Route::get('/{id}', 'show')->name('staffs.show');
+        Route::get('/{id}/edit', 'edit')->name('staffs.edit');
         Route::put('/{id}', 'update')->name('staffs.update');
         Route::delete('/{id}', 'delete')->name('staffs.delete');
     });
@@ -69,6 +73,7 @@ Route::middleware('auth')->prefix('admin')->group(function () {
         Route::get('/', 'index')->name('contracts.index');
         Route::get('/create', 'create')->name('contracts.create');
         Route::post('/create', 'store')->name('contracts.store');
+        Route::get('/{id}/edit', 'edit')->name('contracts.edit');
         Route::get('/{id}', 'show')->name('contracts.show');
         Route::put('/{id}', 'update')->name('contracts.update');
         Route::delete('/{id}', 'delete')->name('contracts.delete');

@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use Log;
 use Str;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 
@@ -12,8 +13,10 @@ class CloundinaryService
         $image = Cloudinary::upload($file->getRealPath(), [
             'folder' => env('CLOUDINARY_FOLDER') . $folder
         ]);
+
         $url = $image->getSecurePath();
 
+        Log::info($url);
         if (!$url) {
             throw new \Exception("Upload failed or returned null URL.");
         }

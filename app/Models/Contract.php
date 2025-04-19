@@ -17,8 +17,9 @@ class Contract extends Model
         'end_date',
         'status',
         'contract_value',
-        'description',
-        'created_by'
+        'note',
+        'created_by',
+        'customer_representative'
     ];
 
     public function customer() {
@@ -35,5 +36,9 @@ class Contract extends Model
 
     public function attachments() {
         return $this->hasMany(ContractAttachment::class, 'contract_id');
+    }
+
+    public function contractHistories() {
+        return $this->hasMany(ContractHistory::class, 'contract_id');
     }
 }

@@ -126,6 +126,7 @@ class UserService {
     public function updateCustomer($request, $id) {
         try {
             $data = $request->validated();
+            $redirect = $request->query('redirect');
             $customer = Customer::find($id);
 
             if (!$customer) {
@@ -141,10 +142,14 @@ class UserService {
 
             $customer->update($data);
 
-            if ($data['contact']) {
+            if (isset($data['contact'])) {
                 $customer->customerContact->update($data['contact']);
             }
             
+            if ($redirect == 'back') {
+                toastr()->success('Khách hàng đã được cập nhật thành công!');
+                return redirect()->back();
+            }
             toastr()->success('Khách hàng đã được cập nhật thành công!');
             return redirect()->route('customers.index');
         } catch (\Throwable $th) {
@@ -156,8 +161,9 @@ class UserService {
     public function updateStaff($request, $id) {
         try {
             $data = $request->validated();
+            $redirect = $request->query('redirect');
 
-            if (!$data['password']) {
+            if (isset($data['password']) && !$data['password']) {
                 unset($data['password']);
             }
 
@@ -171,6 +177,11 @@ class UserService {
             $user->update($data);
             if ($data['staff']) {
                 $user->staff->update($data['staff']);
+            }
+
+            if ($redirect == 'back') {
+                toastr()->success('Nhân sự đã được cập nhật thành công!');
+                return redirect()->back();
             }
 
             toastr()->success('Nhân sự đã được cập nhật thành công!');

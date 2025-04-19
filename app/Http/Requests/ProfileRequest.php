@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StaffRequest extends FormRequest
+class ProfileRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -21,26 +21,17 @@ class StaffRequest extends FormRequest
      */
     public function rules(): array
     {
-        $id = $this->id;
+        $id = auth()->user()->id;
         $rules = [
-            'name' => 'required|string|max:50',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|string|max:255|min:8',
-            'role_id' => 'required|exists:roles,id',
-            'is_active' => 'required',
+            'name' => 'nullable|string|max:50',
+            'email' => 'nullable|email|unique:users,email,'.$id,
             'staff.address' => 'nullable|string|max:255',
             'staff.phone' => 'nullable|string|max:11|min:9',
             'staff.dob' => 'nullable|date',
             'staff.join_date' => 'nullable|date',
             'staff.gender' => 'nullable|in:male,female',
-            'staff.note' => 'nullable|string',
+            'avatar' => 'nullable|image'
         ];
-
-        if ($id) {
-            $rules['email'] .= ",$id";
-            $rules['password'] = "nullable|string|max:255";
-            $rules['role_id'] = "nullable|exists:roles,id";
-        }
 
         return $rules;
     }
@@ -64,16 +55,11 @@ class StaffRequest extends FormRequest
         return [
             'name' => 'Họ và tên',
             'email' => 'Email',
-            'password' => 'Mật khẩu',
-            'role_id' => 'Vai trò',
-            'is_active' => 'Trạng thái tài khoản',
             'staff.phone' => 'Số điện thoại',
             'staff.dob' => 'Ngày sinh',
             'staff.join_date' => 'Ngày vào',
             'staff.gender' => 'Giới tính',
             'staff.address' => 'Địa chỉ',
-            'staff.note' => 'Ghi chú',
         ];
     }
-
 }

@@ -206,14 +206,14 @@
                                                     {{ $status[$item->status] }}</div>
                                             </td>
                                             <td>
-                                                <div style="width: 100px;">{{ $item->created_at }}</div>
+                                                <div style="width: 100px;">{{ format_datetime($item->created_at) }}</div>
                                             </td>
                                             <td>
-                                                <div style="width: 120px;">{{ $item->updated_at }}</div>
+                                                <div style="width: 120px;">{{ format_datetime($item->updated_at) }}</div>
                                             </td>
                                             <td class="text-center">
                                                 <div class="d-flex align-items-center justify-content-center">
-                                                    <a href="{{ route('customers.show', ['id' => $item->id]) }}"
+                                                    <a href="{{ route('customers.edit', ['id' => $item->id]) }}"
                                                         type="button" data-bs-toggle="tooltip" title="Sửa"
                                                         class="btn btn-link text-primary" data-original-title="Edit Task">
                                                         <i class='bx bx-edit'></i>

@@ -41,7 +41,16 @@ class CustomerRequest extends FormRequest
         ];
 
         if ($id) {
-            $rules['contact.email'] .= ",$id,customer_id";
+            $rules['company'] = 'nullable|string|max:50';
+            $rules['short_name'] = 'nullable|string|max:50';
+            $rules['industry'] = 'nullable|string|max:255';
+            $rules['status'] = 'nullable|in:information_exchange,consulting_survey,quotation,negotiation,contract_signed,payment_completed,no_contract_signed';
+            $rules['address'] = 'nullable|string|max:255';
+            $rules['province'] = 'nullable|string|max:255';
+            $rules['district'] = 'nullable|string|max:255';
+            $rules['ward'] = 'nullable|string|max:255';
+            $rules['contact.name'] = 'nullable|string|max:255';
+            $rules['contact.email'] = "nullable|email|unique:customer_contacts,email,$id,customer_id";
         }
 
         return $rules;
