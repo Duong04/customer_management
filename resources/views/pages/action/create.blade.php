@@ -14,14 +14,14 @@
                   <form class="row" action="{{ route('actions.store') }}" method="POST">
                     @csrf
                     <div class="col-md-6 mb-3">
-                      <label class="form-label" for="name">Tên hành động</label>
+                      <label class="form-label" for="name">Tên hành động (<span class="text-danger">*</span>)</label>
                       <input value="{{ old('name') }}" name="name" type="text" class="form-control" id="name" placeholder="Create" />
                       @if ($errors->first('name'))
                         <span class="text-danger" style="font-size: 0.8rem;">{{ $errors->first('name') }}</span>
                       @endif
                     </div>
                     <div class="col-md-6 mb-3">
-                      <label class="form-label" for="value">Bí danh</label>
+                      <label class="form-label" for="value">Bí danh (<span class="text-danger">*</span>)</label>
                       <input value="{{ old('value') }}" name="value" type="text" class="form-control" id="value" placeholder="create" />
                       @if ($errors->first('value'))
                         <span class="text-danger" style="font-size: 0.8rem;">{{ $errors->first('value') }}</span>

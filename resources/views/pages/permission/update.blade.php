@@ -1,7 +1,7 @@
 @extends('layouts.master-layout', ['title' => 'Admin - Cập nhật quyền'])
 @section('content')
     <div class="container-xxl flex-grow-1 container-p-y">
-        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Phân quyền /</span> Cập nhật hành động</h4>
+        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Phân quyền /</span> Cập nhật quyền</h4>
         <!-- Hoverable Table rows -->
         <div class="row">
             <div class="col-xl">
@@ -15,7 +15,7 @@
                     @csrf
                     @method('PUT')
                     <div class="col-md-6 mb-3">
-                      <label class="form-label" for="name">Tên hành động</label>
+                      <label class="form-label" for="name">Tên quyền (<span class="text-danger">*</span>)</label>
                       <input value="{{ $permission->name }}" name="name" type="text" class="form-control" id="name" placeholder="User Managements" />
                       @if ($errors->first('name'))
                         <span class="text-danger" style="font-size: 0.8rem;">{{ $errors->first('name') }}</span>

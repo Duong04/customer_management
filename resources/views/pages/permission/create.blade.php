@@ -14,7 +14,7 @@
                   <form class="row" action="{{ route('permissions.store') }}" method="POST">
                     @csrf
                     <div class="col-md-6 mb-3">
-                      <label class="form-label" for="name">Tên quyền</label>
+                      <label class="form-label" for="name">Tên quyền (<span class="text-danger">*</span>)</label>
                       <input value="{{ old('name') }}" name="name" type="text" class="form-control" id="name" placeholder="User Managements" />
                       @if ($errors->first('name'))
                         <span class="text-danger" style="font-size: 0.8rem;">{{ $errors->first('name') }}</span>

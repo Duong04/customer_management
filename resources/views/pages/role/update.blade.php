@@ -15,7 +15,7 @@
                     @csrf
                     @method('PUT')
                     <div class="col-md-6 mb-3">
-                      <label class="form-label" for="name">Tên vai trò</label>
+                      <label class="form-label" for="name">Tên vai trò (<span class="text-danger">*</span>)</label>
                       <input value="{{ $role['name'] }}" name="name" type="text" class="form-control" id="name" placeholder="Customer" />
                       @if ($errors->first('name'))
                         <span class="text-danger" style="font-size: 0.8rem;">{{ $errors->first('name') }}</span>
@@ -45,7 +45,7 @@
                           $actionIds[$item->id] = $permission ? $permission['actions']->pluck('id')->toArray() : [];
                           $allowedActions = $item->permissionActions->pluck('action_id')->toArray();
                       @endphp
-                          <div class="col-12 d-flex justify-content-between">
+                          <div class="col-12 d-flex justify-content-between align-items-center mb-3">
                               <div class="form-group">
                                   <div>
                                       <label for="">{{$item->name}}</label>

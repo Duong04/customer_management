@@ -1,13 +1,13 @@
-@extends('layouts.master-layout', ['title' => 'Admin - Cập nhật nhân sự'])
+@extends('layouts.master-layout', ['title' => 'Admin - Cập nhật người dùng'])
 @section('content')
     <div class="container-xxl flex-grow-1 container-p-y">
-        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Quản lý người dùng /</span> Cập nhật nhân sự</h4>
+        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Quản lý người dùng /</span> Cập nhật người dùng</h4>
         <!-- Hoverable Table rows -->
         <div class="row">
             <div class="col-xl">
               <div class="card mb-4">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                  <h5 class="mb-0">Thêm nhân sự</h5>
+                  <h5 class="mb-0">Thêm người dùng</h5>
                   <a href="{{ route('staffs.index') }}"><small class="text-muted float-end d-flex align-item-center"><i class='bx bx-left-arrow-alt'></i> Quay về</small></a>
                 </div>
                 <div class="card-body">
@@ -17,7 +17,7 @@
                   
                     {{-- Họ và tên --}}
                     <div class="col-md-4 mb-3">
-                      <label class="form-label" for="name">Họ và tên</label>
+                      <label class="form-label" for="name">Họ và tên (<span class="text-danger">*</span>)</label>
                       <input value="{{ $user->name }}" name="name" type="text" class="form-control" id="name" placeholder="Họ và tên" />
                       @if ($errors->first('name'))
                         <span class="text-danger" style="font-size: 0.8rem;">{{ $errors->first('name') }}</span>
@@ -26,7 +26,7 @@
                   
                     {{-- Email --}}
                     <div class="col-md-4 mb-3">
-                      <label class="form-label" for="email">Email</label>
+                      <label class="form-label" for="email">Email (<span class="text-danger">*</span>)</label>
                       <input value="{{ $user->email }}" name="email" type="text" class="form-control" id="email" placeholder="example@gmail.com" />
                       @if ($errors->first('email'))
                         <span class="text-danger" style="font-size: 0.8rem;">{{ $errors->first('email') }}</span>
@@ -35,7 +35,7 @@
                   
                     {{-- Mật khẩu --}}
                     <div class="col-md-4 mb-3">
-                      <label class="form-label" for="password">Mật khẩu</label>
+                      <label class="form-label" for="password">Mật khẩu (<span class="text-danger">*</span>)</label>
                       <input value="" name="password" type="password" class="form-control" id="password" placeholder="Mật khẩu" />
                       @if ($errors->first('password'))
                         <span class="text-danger" style="font-size: 0.8rem;">{{ $errors->first('password') }}</span>
@@ -44,7 +44,7 @@
                   
                     {{-- Tên viết tắt --}}
                     <div class="col-md-4 mb-3">
-                      <label class="form-label" for="role_id">Vai trò</label>
+                      <label class="form-label" for="role_id">Vai trò (<span class="text-danger">*</span>)</label>
                       <select name="role_id" class="form-control" id="role_id">
                         <option value="">-- Vai trò --</option>
                         @foreach ($roles as $item)

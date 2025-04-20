@@ -129,15 +129,17 @@
                     <div class="card-header">
                         <div class="d-flex align-item-center">
                             <h4 class="card-title">Danh sách</h4>
+                            @can('general-check', ['Customer Management', 'create'])
                             <a href="{{ route('customers.create') }}" class="btn btn-primary btn-round ms-auto">
                                 <i class="fa fa-plus"></i>
                                 Thêm khách hàng
                             </a>
+                            @endcan
                         </div>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table id="basic-datatables" class="display table table-striped table-hover">
+                            <table id="basic-datatables" class="table table-hover">
                                 <thead>
                                     <tr>
                                         <th>Stt</th>
@@ -213,16 +215,20 @@
                                             </td>
                                             <td class="text-center">
                                                 <div class="d-flex align-items-center justify-content-center">
+                                                    @can('general-check', ['Customer Management', 'update'])
                                                     <a href="{{ route('customers.edit', ['id' => $item->id]) }}"
                                                         type="button" data-bs-toggle="tooltip" title="Sửa"
                                                         class="btn btn-link text-primary" data-original-title="Edit Task">
                                                         <i class='bx bx-edit'></i>
                                                     </a>
+                                                    @endcan
+                                                    @can('general-check', ['Customer Management', 'view'])
                                                     <a href="{{ route('customers.show', ['id' => $item->id]) }}"
                                                         type="button" data-bs-toggle="tooltip" title="Chi tiết"
                                                         class="btn btn-link text-warning" data-original-title="Edit Task">
                                                         <i class="fa-solid fa-eye"></i>
                                                     </a>
+                                                    @endcan
                                                 </div>
                                             </td>
                                         </tr>

@@ -97,7 +97,7 @@ class UserService {
                 $data['staff']['code'] = $this->generateCodeStaff();
                 EmployeeProfile::create($data['staff']);
 
-                toastr()->success('Nhân sự đã được tạo thành công!');
+                toastr()->success('Người dùng đã được tạo thành công!');
                 return redirect()->back();
             }
         } catch (\Throwable $th) {
@@ -170,7 +170,7 @@ class UserService {
             $user = User::find($id);
 
             if (!$user) {
-                toastr()->error('Nhân sự không tồn tại!');
+                toastr()->error('Người dùng không tồn tại!');
                 return redirect()->back();
             }
 
@@ -180,11 +180,11 @@ class UserService {
             }
 
             if ($redirect == 'back') {
-                toastr()->success('Nhân sự đã được cập nhật thành công!');
+                toastr()->success('Người dùng đã được cập nhật thành công!');
                 return redirect()->back();
             }
 
-            toastr()->success('Nhân sự đã được cập nhật thành công!');
+            toastr()->success('Người dùng đã được cập nhật thành công!');
             return redirect()->route('staffs.index');
 
         } catch (\Throwable $th) {

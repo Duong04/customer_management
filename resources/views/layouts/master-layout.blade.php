@@ -60,6 +60,7 @@
 
     <!-- Helpers -->
     <script src="/assets/vendor/js/helpers.js"></script>
+    <link rel="stylesheet" href="/assets/kai/css/plugins.min.css" />
 
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
@@ -137,6 +138,12 @@
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <script src="/libraries/axios/axios.min.js"></script>
+    <script src="/assets/kai/js/plugin/datatables/datatables.min.js"></script>
+    <script>
+      $(document).ready(function () {
+          $("#basic-datatables").DataTable({});
+        });
+    </script>
     @yield('script')
   </body>
 </html>

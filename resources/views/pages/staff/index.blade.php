@@ -1,4 +1,4 @@
-@extends('layouts.master-layout', ['title' => 'Admin - Quản lý nhân sự'])
+@extends('layouts.master-layout', ['title' => 'Admin - Quản lý người dùng'])
 @section('css')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
         integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
@@ -121,7 +121,7 @@
 @endsection
 @section('content')
     <div class="container-xxl flex-grow-1 container-p-y">
-        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Quản lý người dùng /</span> Nhân sự</h4>
+        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Quản lý người dùng /</span> người dùng</h4>
         <!-- Hoverable Table rows -->
         <div class="row">
             <div class="col-md-12">
@@ -129,20 +129,22 @@
                     <div class="card-header">
                         <div class="d-flex align-item-center">
                             <h4 class="card-title">Danh sách</h4>
+                            @can('general-check', ['User Management', 'create'])
                             <a href="{{ route('staffs.create') }}" class="btn btn-primary btn-round ms-auto">
                                 <i class="fa fa-plus"></i>
-                                Thêm nhân sự
+                                Thêm người dùng
                             </a>
+                            @endcan
                         </div>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table id="basic-datatables" class="display table table-striped table-hover">
+                            <table id="basic-datatables" class="table table-hover">
                                 <thead>
                                     <tr>
                                         <th>Stt</th>
-                                        <th>Mã nhân sự</th>
-                                        <th>Nhân sự</th>
+                                        <th>Mã người dùng</th>
+                                        <th>người dùng</th>
                                         <th>Vai trò</th>
                                         <th>Trạng thái</th>
                                         <th>Giới tính</th>
@@ -254,16 +256,20 @@
                                             </td>
                                             <td class="text-center">
                                                 <div class="d-flex align-items-center justify-content-center">
+                                                    @can('general-check', ['User Management', 'view'])
                                                     <a href="{{ route('staffs.edit', ['id' => $item->id]) }}"
                                                         type="button" data-bs-toggle="tooltip" title="Sửa"
                                                         class="btn btn-link text-primary" data-original-title="Edit Task">
                                                         <i class='bx bx-edit'></i>
                                                     </a>
+                                                    @endcan
+                                                    @can('general-check', ['User Management', 'update'])
                                                     <a href="{{ route('staffs.show', ['id' => $item->id]) }}"
                                                         type="button" data-bs-toggle="tooltip" title="Chi tiết"
                                                         class="btn btn-link text-warning" data-original-title="Edit Task">
                                                         <i class="fa-solid fa-eye"></i>
                                                     </a>
+                                                    @endcan
                                                 </div>
                                             </td>
                                         </tr>

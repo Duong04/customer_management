@@ -1,4 +1,4 @@
-@extends('layouts.master-layout', ['title' => 'Admin - Thông tin nhân sự'])
+@extends('layouts.master-layout', ['title' => 'Admin - Thông tin người dùng'])
 @section('css')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <style>
@@ -48,7 +48,7 @@
 @endsection
 @section('content')
     <div class="container-xxl flex-grow-1 container-p-y">
-        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light d-flex align-items-center"><a href="{{ route('staffs.index') }}"><i class='bx bx-left-arrow-alt' style="font-size: 2.0rem;"></i></a> Thông tin nhân sự</span></h4>
+        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light d-flex align-items-center"><a href="{{ route('staffs.index') }}"><i class='bx bx-left-arrow-alt' style="font-size: 2.0rem;"></i></a> Thông tin người dùng</span></h4>
         <div class="row">
             <div class="col-md-12 d-flex">
                 <div class="col-4 py-5 bg-white aside-shadow">
@@ -214,7 +214,7 @@
                         </div>
                         <div class="tab-pane fade" id="hopdong" role="tabpanel" aria-labelledby="hopdong-tab">
                             <div class="table-responsive">
-                                <table id="basic-datatables" class="display table table-striped table-hover">
+                                <table id="basic-datatables" class="table table-hover">
                                     <thead>
                                         <tr>
                                             <th>Stt</th>
@@ -246,88 +246,84 @@
                                             ];
     
                                         @endphp
-                                        @if (count($contracts) > 0)
-                                            @foreach ($contracts as $item)
-                                                <tr>
-                                                    <td>
-                                                        <div>{{ $i++ }}</div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="d-flex align-items-center" style="width: 120px">
-                                                            <span class="badge bg-label-primary">{{ $item->code }}</span>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div style="min-width: 120px;">{{ $item->name }}</div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="d-flex align-items-center" style="min-width: 170px">
-                                                            {{ $item->customer->company }} ( {{ $item->customer->short_name }} )
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="d-flex align-items-center" style="min-width: 250px">
-                                                            <div class="d-block" style="width: 50px;"><img
-                                                                    class="rounded-circle object-fit-cover"
-                                                                    src="{{ $item->createdBy->avatar }}" width="45px" height="45px"
-                                                                    alt=""></div>
-                                                            <div
-                                                                class="d-flex flex-column justify-content-center align-item-center ms-2">
-                                                                <b>{{ $item->createdBy->name ?? 'N/A' }}</b>
-                                                                <span>{{ '@' . $item->createdBy->email }} </span>
-                                                            </div>
-        
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div style="min-width: 100px;">
-                                                            <div
-                                                            class="badge {{ $status_color[$item->status] }}">
-                                                                {{ $status[$item->status] ?? 'N/A' }}
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div style="min-width: 100px;"><span class="{{ $item->sign_date ?? 'badge bg-label-dark' }}">{{ format_date($item->sign_date) ?? 'N/A' }}</span></div>
-                                                    </td>
-                                                    <td>
-                                                        <div style="min-width: 130px;"><span class="{{ $item->start_date ?? 'badge bg-label-dark' }}">{{ format_date($item->start_date) ?? 'N/A' }}</span></div>
-                                                    </td>
-                                                    <td>
-                                                        <div style="min-width: 130px;"><span class="{{ $item->end_date ?? 'badge bg-label-dark' }}">{{ format_date($item->end_date) ?? 'N/A' }}</span></div>
-                                                    </td>
-                                                    <td class="text-center">
-                                                        <div class="d-flex align-items-center justify-content-center">
-                                                            <a href="{{ route('contracts.edit', ['id' => $item->id]) }}"
-                                                                type="button" data-bs-toggle="tooltip" title="Sửa"
-                                                                class="btn btn-link text-primary" data-original-title="Edit Task">
-                                                                <i class='bx bx-edit'></i>
-                                                            </a>
-                                                            <a href="{{ route('contracts.show', ['id' => $item->id]) }}"
-                                                                type="button" data-bs-toggle="tooltip" title="Chi tiết"
-                                                                class="btn btn-link text-warning" data-original-title="Edit Task">
-                                                                <i class="fa-solid fa-eye"></i>
-                                                            </a>
-                                                            <form class="d-flex align-items-center" id="delete-form-{{ $item->id }}" method="POST" action="{{ route('contracts.delete', ['id' => $item->id]) }}">
-                                                                @csrf
-                                                                @method('DELETE')
-                                                                <button
-                                                                data-bs-toggle="tooltip"
-                                                                title="Xóa"
-                                                                class="btn btn-link text-danger delete"
-                                                                data-original-title="Remove"
-                                                                data-id="{{ $item->id }}"
-                                                                >
-                                                                    <i class='bx bx-trash' ></i>
-                                                                </button>
-                                                            </form>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            @endforeach
-                                        @else
-                                            <td colspan="10" class="text-center">Không có dữ liệu</td>
-                                        @endif
+                                       @foreach ($contracts as $item)
+                                       <tr>
+                                           <td>
+                                               <div>{{ $i++ }}</div>
+                                           </td>
+                                           <td>
+                                               <div class="d-flex align-items-center" style="width: 120px">
+                                                   <span class="badge bg-label-primary">{{ $item->code }}</span>
+                                               </div>
+                                           </td>
+                                           <td>
+                                               <div style="min-width: 120px;">{{ $item->name }}</div>
+                                           </td>
+                                           <td>
+                                               <div class="d-flex align-items-center" style="min-width: 170px">
+                                                   {{ $item->customer->company }} ( {{ $item->customer->short_name }} )
+                                               </div>
+                                           </td>
+                                           <td>
+                                               <div class="d-flex align-items-center" style="min-width: 250px">
+                                                   <div class="d-block" style="width: 50px;"><img
+                                                           class="rounded-circle object-fit-cover"
+                                                           src="{{ $item->createdBy->avatar }}" width="45px" height="45px"
+                                                           alt=""></div>
+                                                   <div
+                                                       class="d-flex flex-column justify-content-center align-item-center ms-2">
+                                                       <b>{{ $item->createdBy->name ?? 'N/A' }}</b>
+                                                       <span>{{ '@' . $item->createdBy->email }} </span>
+                                                   </div>
+
+                                               </div>
+                                           </td>
+                                           <td>
+                                               <div style="min-width: 100px;">
+                                                   <div
+                                                   class="badge {{ $status_color[$item->status] }}">
+                                                       {{ $status[$item->status] ?? 'N/A' }}
+                                                   </div>
+                                               </div>
+                                           </td>
+                                           <td>
+                                               <div style="min-width: 100px;"><span class="{{ $item->sign_date ?? 'badge bg-label-dark' }}">{{ format_date($item->sign_date) ?? 'N/A' }}</span></div>
+                                           </td>
+                                           <td>
+                                               <div style="min-width: 130px;"><span class="{{ $item->start_date ?? 'badge bg-label-dark' }}">{{ format_date($item->start_date) ?? 'N/A' }}</span></div>
+                                           </td>
+                                           <td>
+                                               <div style="min-width: 130px;"><span class="{{ $item->end_date ?? 'badge bg-label-dark' }}">{{ format_date($item->end_date) ?? 'N/A' }}</span></div>
+                                           </td>
+                                           <td class="text-center">
+                                               <div class="d-flex align-items-center justify-content-center">
+                                                   <a href="{{ route('contracts.edit', ['id' => $item->id]) }}"
+                                                       type="button" data-bs-toggle="tooltip" title="Sửa"
+                                                       class="btn btn-link text-primary" data-original-title="Edit Task">
+                                                       <i class='bx bx-edit'></i>
+                                                   </a>
+                                                   <a href="{{ route('contracts.show', ['id' => $item->id]) }}"
+                                                       type="button" data-bs-toggle="tooltip" title="Chi tiết"
+                                                       class="btn btn-link text-warning" data-original-title="Edit Task">
+                                                       <i class="fa-solid fa-eye"></i>
+                                                   </a>
+                                                   <form class="d-flex align-items-center" id="delete-form-{{ $item->id }}" method="POST" action="{{ route('contracts.delete', ['id' => $item->id]) }}">
+                                                       @csrf
+                                                       @method('DELETE')
+                                                       <button
+                                                       data-bs-toggle="tooltip"
+                                                       title="Xóa"
+                                                       class="btn btn-link text-danger delete"
+                                                       data-original-title="Remove"
+                                                       data-id="{{ $item->id }}"
+                                                       >
+                                                           <i class='bx bx-trash' ></i>
+                                                       </button>
+                                                   </form>
+                                               </div>
+                                           </td>
+                                       </tr>
+                                   @endforeach
                                     </tbody>
                                 </table>
                             </div>

@@ -15,7 +15,7 @@
                         <form class="row" action="{{ route('roles.store') }}" method="POST">
                             @csrf
                             <div class="col-md-6 mb-3">
-                                <label class="form-label" for="name">Tên vai trò</label>
+                                <label class="form-label" for="name">Tên vai trò (<span class="text-danger">*</span>)</label>
                                 <input value="{{ old('name') }}" name="name" type="text" class="form-control"
                                     id="name" placeholder="Customer" />
                                 @if ($errors->first('name'))
@@ -44,7 +44,7 @@
                                     </div>
                                 </div>
                                 @foreach ($permissions as $item)
-                                    <div class="col-12 d-flex justify-content-between">
+                                    <div class="col-12 d-flex justify-content-between align-items-center mb-3">
                                         <div class="form-group">
                                             <div>
                                                 <label for="">{{ $item->name }}</label>
