@@ -17,7 +17,7 @@ Route::controller(AuthController::class)->middleware('guest')->prefix('/')->grou
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
 
-Route::middleware('auth')->prefix('admin')->group(function () {
+Route::middleware(['auth', 'check.status'])->prefix('admin')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/profile', [AuthController::class, 'show'])->name('profile');
     Route::put('/profile', [AuthController::class, 'updateProfile'])->name('profile.update');

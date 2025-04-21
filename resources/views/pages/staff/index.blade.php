@@ -215,26 +215,24 @@
                                                         id="status-{{ $item->id }}"
                                                         class="badge {{ $item->is_active ? 'bg-label-success' : 'bg-label-danger' }}">
                                                         {{ $item->is_active ? 'Hoạt động' : 'Không hoạt động' }}</div>
-                                                    <div class="toggler">
-                                                        <input class="change-status" data-id="{{ $item->id }}" id="toggler-1" {{ $item->is_active ? 'checked' : '' }} name="toggler-1" type="checkbox"
-                                                            value="1">
-                                                        <label for="toggler-1">
-                                                            <svg class="toggler-on" version="1.1"
-                                                                xmlns="http://www.w3.org/2000/svg"
-                                                                viewBox="0 0 130.2 130.2">
-                                                                <polyline class="path check"
-                                                                    points="100.2,40.2 51.5,88.8 29.8,67.5"></polyline>
-                                                            </svg>
-                                                            <svg class="toggler-off" version="1.1"
-                                                                xmlns="http://www.w3.org/2000/svg"
-                                                                viewBox="0 0 130.2 130.2">
-                                                                <line class="path line" x1="34.4" y1="34.4"
-                                                                    x2="95.8" y2="95.8"></line>
-                                                                <line class="path line" x1="95.8" y1="34.4"
-                                                                    x2="34.4" y2="95.8"></line>
-                                                            </svg>
-                                                        </label>
-                                                    </div>
+                                                        <div class="toggler">
+                                                            <input class="change-status" data-id="{{ $item->id }}" 
+                                                                   id="toggler-{{ $item->id }}" 
+                                                                   {{ $item->is_active ? 'checked' : '' }} 
+                                                                   name="toggler-{{ $item->id }}" 
+                                                                   type="checkbox" value="1">
+                                                            
+                                                            <label for="toggler-{{ $item->id }}">
+                                                                <svg class="toggler-on" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2">
+                                                                    <polyline class="path check" points="100.2,40.2 51.5,88.8 29.8,67.5"></polyline>
+                                                                </svg>
+                                                                <svg class="toggler-off" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2">
+                                                                    <line class="path line" x1="34.4" y1="34.4" x2="95.8" y2="95.8"></line>
+                                                                    <line class="path line" x1="95.8" y1="34.4" x2="34.4" y2="95.8"></line>
+                                                                </svg>
+                                                            </label>
+                                                        </div>
+                                                        
                                                 </div>
                                             </td>
                                             <td>

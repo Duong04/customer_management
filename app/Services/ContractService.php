@@ -8,8 +8,10 @@ use App\Models\ContractPayment;
 use App\Models\ContractAttachment;
 use App\Services\FirebaseService;
 use Auth;
+use App\Traits\RoleFormat;
 
 class ContractService {
+    use RoleFormat;
     private $firebaseService;
     public function __construct(FirebaseService $firebaseService) {
         $this->firebaseService = $firebaseService;
@@ -17,11 +19,20 @@ class ContractService {
 
     public function all($user = null) {
         try {
+            $user_auth = Auth::user();
+            $role = $this->formatRole($user_auth->role);
             $contracts = Contract::query();
+
+            $hasViewAllOrder = collect($role['permissions'])
+            ->firstWhere('name', 'Contract Management')['actions'] ?? [];
 
             if ($user) {
                 $contracts->where('created_by', $user);
             } 
+
+            if (strtoupper($user_auth->role->name) !== 'SUPPER ADMIN' && !collect($hasViewAllOrder)->pluck('value')->contains('viewAll')) {
+                $contracts->where('created_by', $user_auth->id);
+            }
             
             $contracts = $contracts->orderByDesc('id')->get();
 
