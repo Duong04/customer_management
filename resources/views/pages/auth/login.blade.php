@@ -11,7 +11,7 @@
         </a>
       </div>
       <!-- /Logo -->
-      <h4 class="mb-2">Welcome to Sneat! 👋</h4>
+      <h4 class="mb-2">Welcome to IBPO! 👋</h4>
       <p class="mb-4">Vui lòng đăng nhập vào tài khoản của bạn và bắt đầu cuộc phiêu lưu</p>
 
       <form id="formAuthentication" class="mb-3 pb-2" action="{{ route('action.login') }}" method="POST">
