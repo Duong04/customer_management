@@ -184,17 +184,17 @@
                                                 <div>{{ $i++ }}</div>
                                             </td>
                                             <td>
-                                                <div class="d-flex align-items-center" style="width: 120px">
+                                                <div class="d-flex align-items-center" style="min-width: 150px">
                                                     <span class="badge bg-label-primary">{{ $item->code }}</span>
                                                 </div>
                                             </td>
                                             <td>
-                                                <div class="d-flex align-items-center" style="min-width: 100px">
+                                                <div class="d-flex align-items-center" style="min-width: 150px">
                                                     {{ $item->company }}
                                                 </div>
                                             </td>
                                             <td>
-                                                <div style="width: 100px;">{{ $item->short_name }}</div>
+                                                <div style="width: 130px;">{{ $item->short_name }}</div>
                                             </td>
                                             <td>
                                                 <div style="min-width: 10px;">{{ $item->customerContact->email }}</div>
@@ -208,10 +208,10 @@
                                                     {{ $status[$item->status] }}</div>
                                             </td>
                                             <td>
-                                                <div style="width: 100px;">{{ format_datetime($item->created_at) }}</div>
+                                                <div style="min-width: 140px;">{{ format_datetime($item->created_at) }}</div>
                                             </td>
                                             <td>
-                                                <div style="width: 120px;">{{ format_datetime($item->updated_at) }}</div>
+                                                <div style="min-width: 140px;">{{ format_datetime($item->updated_at) }}</div>
                                             </td>
                                             <td class="text-center">
                                                 <div class="d-flex align-items-center justify-content-center">
@@ -228,6 +228,21 @@
                                                         class="btn btn-link text-warning" data-original-title="Edit Task">
                                                         <i class="fa-solid fa-eye"></i>
                                                     </a>
+                                                    @endcan
+                                                    @can('general-check', ['Customer Management', 'delete'])
+                                                    <form class="d-flex align-items-center" id="delete-form-{{ $item->id }}" method="POST" action="{{ route('customers.delete', ['id' => $item->id]) }}">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button
+                                                          data-bs-toggle="tooltip"
+                                                          title="Xóa"
+                                                          class="btn btn-link text-danger delete"
+                                                          data-original-title="Remove"
+                                                          data-id="{{ $item->id }}"
+                                                        >
+                                                            <i class='bx bx-trash' ></i>
+                                                        </button>
+                                                      </form>
                                                     @endcan
                                                 </div>
                                             </td>

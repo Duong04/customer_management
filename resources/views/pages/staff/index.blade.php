@@ -188,7 +188,7 @@
                                                 <div>{{ $i++ }}</div>
                                             </td>
                                             <td>
-                                                <div class="d-flex align-items-center" style="width: 120px">
+                                                <div class="d-flex align-items-center" style="width: 140px">
                                                     <span class="badge bg-label-primary">{{ $item->staff->code }}</span>
                                                 </div>
                                             </td>
@@ -247,10 +247,10 @@
                                                 <div style="width: 100px;"><span class="{{ $item->staff->dob ?? 'badge bg-label-dark' }}">{{ format_date($item->staff->dob) ?? 'N/A' }}</span></div>
                                             </td>
                                             <td>
-                                                <div style="width: 100px;">{{ format_datetime($item->created_at) }}</div>
+                                                <div style="width: 140px;">{{ format_datetime($item->created_at) }}</div>
                                             </td>
                                             <td>
-                                                <div style="width: 120px;">{{ format_datetime($item->updated_at) }}</div>
+                                                <div style="width: 140px;">{{ format_datetime($item->updated_at) }}</div>
                                             </td>
                                             <td class="text-center">
                                                 <div class="d-flex align-items-center justify-content-center">

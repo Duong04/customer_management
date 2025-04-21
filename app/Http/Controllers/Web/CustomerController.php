@@ -71,4 +71,8 @@ class CustomerController extends Controller
     public function update(CustomerRequest $request, $id) {
         return $this->userService->updateCustomer($request, $id);
     }
+
+    public function delete($id) {
+        return $this->userService->deleteCustomer($id);   
+    }
 }

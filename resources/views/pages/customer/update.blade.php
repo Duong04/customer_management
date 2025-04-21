@@ -206,7 +206,7 @@
 
                       <div class="col-12">
                           <button type="submit" class="btn btn-primary">Cập nhật</button>
-                          <a href="{{ route('customers.index') }}" class="btn btn-outline-warning">Hủy</a>
+                          <a href="{{ route('customers.index') }}" class="btn btn-outline-danger">Hủy</a>
                       </div>
                   </form>
 

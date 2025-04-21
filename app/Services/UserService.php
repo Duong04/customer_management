@@ -204,6 +204,21 @@ class UserService {
         return 'MNV00001';
     }
 
+    public function deleteCustomer($id) {
+        try {
+            $customer = Customer::find($id);
+
+            $customer->delete();
+
+            toastr()->success('Khách hàng đã xóa thành công!');
+
+            return redirect()->route('customers.index');
+        } catch (\Throwable $th) {
+            toastr()->error($th->getMessage());
+            return redirect()->back();
+        }
+    }
+
     private function generateCodeCustomer()
     {
         $max_code = Customer::max('code');

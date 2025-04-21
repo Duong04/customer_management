@@ -67,7 +67,7 @@
                                                 </div>
                                             </td>
                                             <td>
-                                                <div style="min-width: 120px;">{{ $item->name }}</div>
+                                                <div style="min-width: 150px;">{{ $item->name }}</div>
                                             </td>
                                             <td>
                                                 <div class="d-flex align-items-center" style="min-width: 170px">
@@ -89,7 +89,7 @@
                                                 </div>
                                             </td>
                                             <td>
-                                                <div style="min-width: 100px;">
+                                                <div style="min-width: 120px;">
                                                     <div
                                                     class="badge {{ $status_color[$item->status] }}">
                                                         {{ $status[$item->status] ?? 'N/A' }}

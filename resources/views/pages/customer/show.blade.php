@@ -35,7 +35,12 @@
                 </div>
                 <div class="col-8 d-flex justify-content-end align-items-start mb-3" style="gap: 10px;">
                     <a href="{{ route('customers.edit', $customer->id) }}" class="btn btn-outline-primary">✏️ Chỉnh sửa</a>
-
+                    <form action="{{ route('customers.delete', $customer->id) }}" id="delete-form-{{ $customer->id }}"
+                        method="POST" class="d-inline" id="delete-form-{{ $customer->id }}">
+                        @csrf
+                        @method('DELETE')
+                        <button class="btn btn-danger delete" data-id="{{ $customer->id }}">🗑️ Xóa</button>
+                    </form>
                 </div>
             </div>
             <div>

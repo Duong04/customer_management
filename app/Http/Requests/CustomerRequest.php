@@ -82,6 +82,7 @@ class CustomerRequest extends FormRequest
             'user.password' => 'Mật khẩu',
             'user.is_active' => 'Trạng thái tài khoản',
             'contact.name' => 'Tên liên hệ',
+            'contact.email' => 'Email',
             'contact.gender' => 'Giới tính',
             'contact.phone' => 'Số điện thoại',
             'contact.position' => 'Chức vụ',

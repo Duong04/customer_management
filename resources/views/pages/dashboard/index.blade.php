@@ -3,6 +3,20 @@
     <div class="container-xxl flex-grow-1 container-p-y">
         <div class="row">
             <div class="col-lg-8 mb-4 order-0">
+                <div class="card-tools my-3">
+                    <a href="#" class="btn bg-label-success btn-round btn-sm me-2">
+                        <span class="btn-label">
+                            <i class="fa fa-pencil"></i>
+                        </span>
+                        Export
+                    </a>
+                    <a href="#" class="btn bg-label-info btn-round btn-sm">
+                        <span class="btn-label">
+                            <i class="fa fa-print"></i>
+                        </span>
+                        Print
+                    </a>
+                </div>
                 <div class="card">
                     <div class="d-flex align-items-end row">
                         <div class="col-sm-7">

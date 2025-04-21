@@ -160,7 +160,8 @@
                                         @endif
                                     </div>
                                     <div class="col-md-6 mb-3">
-                                        <label class="form-label" for="address">Địa chỉ</label>
+                                        <label class="form-label" for="address">Địa chỉ ( <span class="text-danger">*</span>
+                                            )</label>
                                         <input type="text" value="{{ old('address') }}" name="address"
                                             rows="4" type="text" class="form-control" id="address"
                                             placeholder="Địa chỉ">
@@ -170,7 +171,8 @@
                                         @endif
                                     </div>
                                     <div class="col-md-6 mb-3">
-                                        <label class="form-label" for="province">Chọn tỉnh/thành</label>
+                                        <label class="form-label" for="province">Chọn tỉnh/thành ( <span class="text-danger">*</span>
+                                            )</label>
                                         <select class="form-control" name="province" id="province">
                                             <option value="">-- Chọn tỉnh/thành --</option>
                                         </select>
@@ -180,7 +182,8 @@
                                         @endif
                                     </div>
                                     <div class="col-md-6 mb-3">
-                                        <label class="form-label" for="district">Quận / Huyện</label>
+                                        <label class="form-label" for="district">Quận / Huyện ( <span class="text-danger">*</span>
+                                            )</label>
 
                                         <select class="form-control" name="district" id="district">
                                             <option value="">-- Chọn quận/huyện --</option>
@@ -191,7 +194,8 @@
                                         @endif
                                     </div>
                                     <div class="col-md-6 mb-3">
-                                        <label class="form-label" for="ward">Phường/ Xã</label>
+                                        <label class="form-label" for="ward">Phường/ Xã ( <span class="text-danger">*</span>
+                                            )</label>
 
                                         <select class="form-control" name="ward" id="ward">
                                             <option value="">-- Chọn phường/xã --</option>
@@ -207,7 +211,7 @@
 
                             <div class="col-12">
                                 <button type="submit" class="btn btn-primary">Lưu</button>
-                                <a href="{{ route('customers.index') }}" class="btn btn-outline-warning">Hủy</a>
+                                <a href="{{ route('customers.index') }}" class="btn btn-outline-danger">Hủy</a>
                             </div>
                         </form>
 

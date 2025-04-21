@@ -208,7 +208,7 @@
                               
                                 <div class="col-12">
                                   <button type="submit" class="btn btn-primary">Lưu</button>
-                                  <a href="{{ route('staffs.index') }}" class="btn btn-outline-warning">Hủy</a>
+                                  <a href="{{ route('staffs.index') }}" class="btn btn-outline-danger">Hủy</a>
                                 </div>
                               </form>
                         </div>
