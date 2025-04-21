@@ -118,11 +118,6 @@
                                 Thông tin
                             </button>
                         </li>
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link tab-custom" id="hopdong-tab" data-bs-toggle="tab" data-bs-target="#hopdong" type="button" role="tab" aria-controls="hopdong" aria-selected="false">
-                                Hợp đồng
-                            </button>
-                        </li>
                     </ul>
                 
                     <!-- Tab content -->
@@ -211,122 +206,6 @@
                                   <a href="{{ route('staffs.index') }}" class="btn btn-outline-danger">Hủy</a>
                                 </div>
                               </form>
-                        </div>
-                        <div class="tab-pane fade" id="hopdong" role="tabpanel" aria-labelledby="hopdong-tab">
-                            <div class="table-responsive">
-                                <table id="basic-datatables" class="table table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th>Stt</th>
-                                            <th style="min-width: 100px">Mã hợp đồng</th>
-                                            <th style="min-width: 100px;">Tên hợp đồng</th>
-                                            <th style="min-width: 100px">Khách hàng</th>
-                                            <th style="min-width: 100px">Người tạo</th>
-                                            <th style="min-width: 100px;">Trạng thái</th>
-                                            <th style="min-width: 100px;">Ngày ký</th>
-                                            <th style="min-width: 100px;">Ngày bắt đầu</th>
-                                            <th style="min-width: 100px;">Ngày kết thúc</th>
-                                            <th class="text-center">Thao tác</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @php
-                                            $i = 1;
-                                            
-                                            $status = [
-                                                'valid' => 'Đang có hiệu lực',
-                                                'expired' => 'Hết hạn',
-                                                'not_yet_valid' => 'Chưa có hiệu lực'
-                                            ];
-    
-                                            $status_color = [
-                                                'valid' => 'bg-label-primary',
-                                                'expired' => 'bg-label-danger',
-                                                'not_yet_valid' => 'bg-label-secondary'
-                                            ];
-    
-                                        @endphp
-                                       @foreach ($contracts as $item)
-                                       <tr>
-                                           <td>
-                                               <div>{{ $i++ }}</div>
-                                           </td>
-                                           <td>
-                                               <div class="d-flex align-items-center" style="width: 120px">
-                                                   <span class="badge bg-label-primary">{{ $item->code }}</span>
-                                               </div>
-                                           </td>
-                                           <td>
-                                               <div style="min-width: 120px;">{{ $item->name }}</div>
-                                           </td>
-                                           <td>
-                                               <div class="d-flex align-items-center" style="min-width: 170px">
-                                                   {{ $item->customer->company }} ( {{ $item->customer->short_name }} )
-                                               </div>
-                                           </td>
-                                           <td>
-                                               <div class="d-flex align-items-center" style="min-width: 250px">
-                                                   <div class="d-block" style="width: 50px;"><img
-                                                           class="rounded-circle object-fit-cover"
-                                                           src="{{ $item->createdBy->avatar }}" width="45px" height="45px"
-                                                           alt=""></div>
-                                                   <div
-                                                       class="d-flex flex-column justify-content-center align-item-center ms-2">
-                                                       <b>{{ $item->createdBy->name ?? 'N/A' }}</b>
-                                                       <span>{{ '@' . $item->createdBy->email }} </span>
-                                                   </div>
-
-                                               </div>
-                                           </td>
-                                           <td>
-                                               <div style="min-width: 100px;">
-                                                   <div
-                                                   class="badge {{ $status_color[$item->status] }}">
-                                                       {{ $status[$item->status] ?? 'N/A' }}
-                                                   </div>
-                                               </div>
-                                           </td>
-                                           <td>
-                                               <div style="min-width: 100px;"><span class="{{ $item->sign_date ?? 'badge bg-label-dark' }}">{{ format_date($item->sign_date) ?? 'N/A' }}</span></div>
-                                           </td>
-                                           <td>
-                                               <div style="min-width: 130px;"><span class="{{ $item->start_date ?? 'badge bg-label-dark' }}">{{ format_date($item->start_date) ?? 'N/A' }}</span></div>
-                                           </td>
-                                           <td>
-                                               <div style="min-width: 130px;"><span class="{{ $item->end_date ?? 'badge bg-label-dark' }}">{{ format_date($item->end_date) ?? 'N/A' }}</span></div>
-                                           </td>
-                                           <td class="text-center">
-                                               <div class="d-flex align-items-center justify-content-center">
-                                                   <a href="{{ route('contracts.edit', ['id' => $item->id]) }}"
-                                                       type="button" data-bs-toggle="tooltip" title="Sửa"
-                                                       class="btn btn-link text-primary" data-original-title="Edit Task">
-                                                       <i class='bx bx-edit'></i>
-                                                   </a>
-                                                   <a href="{{ route('contracts.show', ['id' => $item->id]) }}"
-                                                       type="button" data-bs-toggle="tooltip" title="Chi tiết"
-                                                       class="btn btn-link text-warning" data-original-title="Edit Task">
-                                                       <i class="fa-solid fa-eye"></i>
-                                                   </a>
-                                                   <form class="d-flex align-items-center" id="delete-form-{{ $item->id }}" method="POST" action="{{ route('contracts.delete', ['id' => $item->id]) }}">
-                                                       @csrf
-                                                       @method('DELETE')
-                                                       <button
-                                                       data-bs-toggle="tooltip"
-                                                       title="Xóa"
-                                                       class="btn btn-link text-danger delete"
-                                                       data-original-title="Remove"
-                                                       data-id="{{ $item->id }}"
-                                                       >
-                                                           <i class='bx bx-trash' ></i>
-                                                       </button>
-                                                   </form>
-                                               </div>
-                                           </td>
-                                       </tr>
-                                   @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
                         </div>
                     </div>
                 </div>
