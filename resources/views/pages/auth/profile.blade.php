@@ -121,42 +121,12 @@
                             </div>
                         </div>
                     </div>
-                    <div class="px-3 mt-3">
-                        <h6 class="py-0">Chi tiết</h6>
-                        <hr>
-                        <ul class="nav d-flex flex-column" style="gap: 10px">
-                            <li class="fs-7">
-                                <span class="fw-semibold">Email:</span>
-                                <span class="text-midgray">{{ auth()->user()->email ?? 'N/A' }}</span>
-                            </li>
-                            <li class="fs-7">
-                                <span class="fw-semibold">Ngày sinh:</span>
-                                <span class="text-midgray">{{ auth()->user()?->staff?->dob ? format_date(auth()->user()->staff->dob) : 'N/A' }}</span>
-                            </li>
-                            <li class="fs-7">
-                                <span class="fw-semibold">Ngày vào:</span>
-                                <span class="text-midgray">{{ auth()->user()?->staff?->join_date ? format_date(auth()->user()->staff->join_date) : 'N/A' }}</span>
-                            </li>
-                            <li class="fs-7">
-                                <span class="fw-semibold">Giới tính:</span>
-                                <span class="text-midgray">{{ auth()->user()?->staff?->gender ? (auth()->user()->staff->gender == 'male' ? 'Nam' : 'Nữ') : 'N/A' }}</span>
-                            </li>
-                            <li class="fs-7">
-                                <span class="fw-semibold">Số điện thoại:</span>
-                                <span class="text-midgray">{{ auth()->user()?->staff?->phone ?? 'N/A' }}</span>
-                            </li>
-                            <li class="fs-7">
-                                <span class="fw-semibold">Địa chỉ:</span>
-                                <span class="text-midgray">{{ auth()->user()?->staff?->address ?? 'N/A' }}</span>
-                            </li>
-                        </ul>
-                    </div>
                 </div>
                 <div class="col-8 bg-white p-5">
                     <div class="row mt-3">
                         {{-- Họ và tên --}}
                         <div class="col-md-6 mb-3">
-                          <label class="form-label" for="name">Họ và tên</label>
+                          <label class="form-label" for="name">Họ và tên (<span class="text-danger">*</span>)</label>
                           <input value="{{ auth()->user()->name }}" name="name" type="text" class="form-control" id="name" placeholder="Họ và tên" />
                           @if ($errors->first('name'))
                             <span class="text-danger" style="font-size: 0.8rem;">{{ $errors->first('name') }}</span>
@@ -165,12 +135,19 @@
                       
                         {{-- Email --}}
                         <div class="col-md-6 mb-3">
-                          <label class="form-label" for="email">Email</label>
+                          <label class="form-label" for="email">Email (<span class="text-danger">*</span>)</label>
                           <input value="{{ auth()->user()->email }}" name="email" type="text" class="form-control" id="email" placeholder="example@gmail.com" />
                           @if ($errors->first('email'))
                             <span class="text-danger" style="font-size: 0.8rem;">{{ $errors->first('email') }}</span>
                           @endif
                         </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label" for="email">Mật khẩu (<span class="text-danger">*</span>)</label>
+                            <input value="" name="password" type="password" class="form-control" id="password" placeholder="Mật khẩu" />
+                            @if ($errors->first('password'))
+                              <span class="text-danger" style="font-size: 0.8rem;">{{ $errors->first('password') }}</span>
+                            @endif
+                          </div>
                       
                         <div class="col-md-6 mb-3">
                           <label class="form-label" for="phone">Số điện thoại</label>
