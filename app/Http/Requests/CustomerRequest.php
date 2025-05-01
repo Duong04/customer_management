@@ -24,19 +24,19 @@ class CustomerRequest extends FormRequest
         $id = $this->id;
         $rules = [
             'company' => 'required|string|max:50',
-            'short_name' => 'required|string|max:50',
+            'short_name' => 'nullable|string|max:50',
             'industry' => 'required|string|max:255',
             'status' => 'required|in:information_exchange,consulting_survey,quotation,negotiation,contract_signed,payment_completed,no_contract_signed',
-            'address' => 'required|string|max:255',
-            'province' => 'required|string|max:255',
-            'district' => 'required|string|max:255',
-            'ward' => 'required|string|max:255',
+            'address' => 'nullable|string|max:255',
+            'province' => 'nullable|string|max:255',
+            'district' => 'nullable|string|max:255',
+            'ward' => 'nullable|string|max:255',
             'note' => 'nullable|string',
             'file' => 'nullable',
             'contact.name' => 'required|string|max:255',
             'contact.email' => 'required|email|unique:customer_contacts,email',
-            'contact.gender' => 'nullable|in:male,female',
-            'contact.phone' => 'nullable|min:9|max:11',
+            'contact.gender' => 'required|in:male,female',
+            'contact.phone' => 'required|min:9|max:11',
             'contact.position' => 'nullable|string|max:255',
         ];
 
@@ -72,11 +72,14 @@ class CustomerRequest extends FormRequest
     public function attributes(): array
     {
         return [
-            'fullname' => 'Họ và tên',
-            'name' => 'Tên viết tắt',
+            'company' => 'Tên đầy đủ',
+            'short_name' => 'Tên viết tắt',
             'industry' => 'Lĩnh vực',
             'status' => 'Trạng thái',
             'address' => 'Địa chỉ',
+            'province' => 'Tỉnh/Thành',
+            'district' => 'Quận/Huyện',
+            'ward' => 'Phường/Xã',
             'description' => 'Mô tả',
             'user.email' => 'Email',
             'user.password' => 'Mật khẩu',
