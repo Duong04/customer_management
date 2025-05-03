@@ -109,15 +109,6 @@
                                 @enderror
                             </div>
 
-                            {{-- Ngày bắt đầu --}}
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label" for="start_date">Ngày bắt đầu ( <span class="text-danger">*</span> )</label>
-                                <input value="{{ old('start_date', Carbon::now()->format('Y-m-d')) }}" name="start_date"
-                                    type="date" class="form-control" id="start_date" />
-                                @error('start_date')
-                                    <span class="text-danger" style="font-size: 0.8rem;">{{ $message }}</span>
-                                @enderror
-                            </div>
 
                             {{-- Ngày ký --}}
                             <div class="col-md-6 mb-3">
@@ -129,6 +120,15 @@
                                 @enderror
                             </div>
 
+                            {{-- Ngày bắt đầu --}}
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label" for="start_date">Ngày bắt đầu ( <span class="text-danger">*</span> )</label>
+                                <input value="{{ old('start_date', Carbon::now()->format('Y-m-d')) }}" name="start_date"
+                                    type="date" class="form-control" id="start_date" />
+                                @error('start_date')
+                                    <span class="text-danger" style="font-size: 0.8rem;">{{ $message }}</span>
+                                @enderror
+                            </div>
 
                             {{-- Trạng thái --}}
                             @php

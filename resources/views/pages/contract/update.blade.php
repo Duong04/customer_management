@@ -108,15 +108,6 @@ use Carbon\Carbon;
                                 @enderror
                             </div>
 
-                            {{-- Ngày bắt đầu --}}
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label" for="start_date">Ngày bắt đầu ( <span class="text-danger">*</span> )</label>
-                                <input value="{{ $contract->start_date }}" name="start_date"
-                                    type="date" class="form-control" id="start_date" />
-                                @error('start_date')
-                                    <span class="text-danger" style="font-size: 0.8rem;">{{ $message }}</span>
-                                @enderror
-                            </div>
 
                             {{-- Ngày ký --}}
                             <div class="col-md-6 mb-3">
@@ -124,6 +115,16 @@ use Carbon\Carbon;
                                 <input value="{{ $contract->sign_date }}" name="sign_date"
                                     type="date" class="form-control" id="sign_date" />
                                 @error('sign_date')
+                                    <span class="text-danger" style="font-size: 0.8rem;">{{ $message }}</span>
+                                @enderror
+                            </div>
+
+                            {{-- Ngày bắt đầu --}}
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label" for="start_date">Ngày bắt đầu ( <span class="text-danger">*</span> )</label>
+                                <input value="{{ $contract->start_date }}" name="start_date"
+                                    type="date" class="form-control" id="start_date" />
+                                @error('start_date')
                                     <span class="text-danger" style="font-size: 0.8rem;">{{ $message }}</span>
                                 @enderror
                             </div>
